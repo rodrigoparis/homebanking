@@ -1,0 +1,492 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+* {
+    font-family: 10rem !important;
+    font-family: 'Open Sans', sans-serif;
+    /* evita que se pueda seleccionar el texto */
+    user-select: none;
+}
+
+/*GENERAL*/
+
+main {
+    min-height: 100vh;
+}
+
+footer {
+    background-color: white;
+    min-height: 25vh;
+}
+
+header {
+    color: white;
+    margin-right: 0 !important;
+    min-height: 25vh;
+    background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(5, 71, 105, 1) 0%, rgba(0, 195, 229, 1) 90%);
+    --bs-gutter-x: 0 !important;
+}
+
+body {
+    background-color: rgba(218, 219, 218, 0.295);
+    min-height: 200vh !important;
+}
+
+nav, body, header {
+    width: 100% !important;
+}
+
+
+
+#header {
+    margin-top: 5rem !important;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    font-size: 1.5rem !important;
+    text-align: justify !important;
+}
+
+#json {
+    background-color: beige;
+}
+
+.row {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+input#newAccount:placeholder-shown, aside>*, td, th {
+    text-align: center;
+}
+
+#exit-btn {
+    color: rgba(5, 71, 105, 1);
+    padding-right: 10px;
+}
+
+exit-btn:hover {
+    color: rgba(0, 195, 229, 1);
+}
+
+#contenedor-tabla {
+    background-color: beige;
+}
+
+[v-cloak] {
+    display: none !important;
+}
+
+.profile-pic {
+    max-width: 125px;
+    max-height: 125px;
+}
+
+#ars {
+    width: 60px;
+}
+
+/*CREATE CARD*/
+
+.disabledCard {
+    pointer-events: none;
+}
+
+.createCard {
+    min-height: 70vh !important;
+}
+
+.switch {
+    margin-right: 2rem;
+}
+
+.switch:hover {
+    cursor: pointer;
+}
+
+.disabledSection {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.getColor {
+    width: fit-content;
+}
+
+.btn-check:focus+.btn, .btn:focus {
+    outline: 0;
+    box-shadow: none !important;
+}
+
+.card-p {
+    text-align: justify;
+}
+
+/*END CREATE-CARD*/
+
+/*TRANSFER*/
+
+.fa-plus-circle, .fa-minus-circle {
+    color: rgb(15, 142, 206);
+}
+
+.fa-plus-circle:hover, .fa-minus-circle:hover, .newAccount:hover {
+    color: rgba(15, 66, 206, 0.651);
+    cursor: pointer;
+}
+
+/*ALERTS*/
+
+.swal-overlay {
+    background-color: rgba(14, 14, 95, 0.281);
+}
+
+.swal-button {
+    margin: 0 auto;
+}
+
+.swal-footer {
+    display: flex;
+    justify-content: center;
+}
+
+/*END ALERTS*/
+
+/*BUTTONS*/
+
+.btn-grad {
+    background-image: linear-gradient(to right, #00a4d1 0%, #0072ff 51%, #00a4d1 100%)
+}
+
+.btn-grad {
+    font: 'Source Sans Pro', sans-serif;
+    margin: 10px;
+    padding: 8px 10px;
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 30px;
+    display: block;
+}
+
+.btn-grad:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
+
+/*END BUTTONS*/
+
+/*CARDS*/
+
+.cards-body {
+    background-color: rgba(232, 233, 241, 0.452);
+    margin: .5rem !important;
+    border-radius: 25px;
+}
+
+.creditClass {
+    color: rgb(34, 173, 34);
+    font-weight: 900 !important;
+}
+
+.debitClass {
+    color: red;
+    font-weight: 900 !important;
+}
+
+#card-promo {
+    width: auto;
+    max-height: 400px;
+}
+
+.chip {
+    width: 35px !important
+}
+
+#visa-logo {
+    width: 80px !important;
+    background-image: black;
+}
+
+.back-logo {
+    width: 45px !important;
+    margin-top: -5px;
+}
+
+.contenedor>* {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.card-own {
+    width: 250px !important;
+    height: 200px !important;
+    color: white;
+    cursor: pointer;
+    perspective: 100vh;
+    margin: 0 auto !important
+}
+
+.card-inner {
+    width: 250px !important;
+    height: 200px !important;
+    position: relative !important;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+}
+
+.front, .back {
+    width: 265px !important;
+    height: 170px !important;
+    background-image: linear-gradient(45deg, #121213, #2020c7);
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    padding: 15px 25px !important;
+    border-radius: 15px !important;
+    overflow: hidden !important;
+    z-index: 1 !important;
+    backface-visibility: hidden !important;
+}
+
+.titanium {
+    background-image: linear-gradient(45deg, #1313c5, #6c6c75);
+}
+
+.gold {
+    background: linear-gradient(90deg, rgba(74, 71, 23, 1) 47%, rgba(144, 145, 86, 1) 100%);
+}
+
+.silver {
+    background-image: linear-gradient(45deg, #55555e, #6c6c75);
+}
+
+.fila {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.map-img {
+    width: 100% !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    opacity: .3 !important;
+    z-index: -1 !important;
+}
+
+.card-number {
+    font-size: 1.3rem !important;
+    padding-top: 1vh !important
+}
+
+.card-holder p {
+    font-size: .7rem;
+    margin-top: -1vh !important;
+    margin-bottom: 0 !important;
+}
+
+.name {
+    font-size: 1rem;
+    margin-top: 0 !important
+}
+
+.black-bar {
+    background: #222;
+    margin-left: -8vw !important;
+    margin-right: -8vw !important;
+    height: 5vh !important;
+    margin-top: -3px
+}
+
+.card-cvv {
+    margin-top: 0 !important
+}
+
+.card-cvv div {
+    flex: 1 !important;
+}
+
+.card-cvv img {
+    height: 2.5rem !important;
+    width: 100% !important;
+    display: block !important;
+    line-height: 0 !important;
+}
+
+.card-cvv p {
+    background-color: #fff;
+    color: black;
+    font-size: .9rem !important;
+    padding: .2em .8em !important;
+    margin-top: .7em;
+}
+
+.card-cont {
+    margin-top: 0 !important;
+    font-size: .7em !important;
+}
+
+.signature {
+    margin-top: -3em !important;
+    font-size: .5em !important;
+}
+
+.back {
+    transform: rotateY(180deg);
+}
+
+.card-own:hover .card-inner {
+    transform: rotateY(-180deg);
+}
+
+/*END CARDS*/
+
+/* LOADER */
+
+#loader {
+    top: 50%;
+    left: 50%;
+    transform: translate(-45%, 25%);
+    position: absolute;
+    min-width: 400px;
+    padding-left: 5rem;
+}
+
+.img-fluid {
+    max-height: 60vh !important;
+    margin: 0 auto;
+}
+
+/* ****** */
+
+/*ACCOUNTS*/
+
+.account {
+    margin: 2rem 1rem !important;
+    background-color: whitesmoke;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+
+.account:hover, .selected {
+    background-color: #95c9e0;
+    font-weight: 300;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.header-ammounts {
+    font-size: 2.5rem;
+}
+
+.graphics {
+    max-width: 280px !important;
+}
+
+.accordion-account {
+    width: 25px !important;
+}
+
+.accordion-button, .accordion-button:not(.collapsed) {
+    background-color: white !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.accordion-body {
+    margin: 1rem !important;
+    border-radius: 10px;
+    background-color: rgba(203, 244, 252, 0.233);
+}
+
+.scrollable {
+    overflow-y: scroll;
+    height: 90vh;
+
+}
+
+.search {
+    width: 15vw !important;
+    margin-left: 60vw !important;
+}
+
+.item-1 {
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    align-self: center;
+    font-style: italic;
+    font-weight: 600;
+    height: 8vh !important;
+    border-bottom: .1px solid rgba(75, 78, 80, 0.26);
+}
+
+.prueba {
+    margin: 1rem !important;
+    background-color: rgba(120, 138, 187, 0.048) !important;
+    border-radius: 25px;
+}
+
+.item-2 {
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    align-self: center;
+}
+
+.currency-table {
+    margin: 2rem auto !important;
+}
+
+/*END ACCOUNTS*/
+
+/*OTHERS*/
+
+.contenedor {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    border-bottom: 2px solid rgb(202, 200, 200);
+    padding-bottom: 1rem;
+}
+
+.container {
+    max-width: 100% !important;
+}
+
+#title {
+    font-weight: 100;
+    font-size: 2rem;
+    font-family: 'Source Sans Pro', sans-serif;
+    margin: 0 1rem;
+}
+
+#title>strong, .newAccount {
+    color: #26a0da;
+}
+
+/*END OTHERS*/
+
+@media only screen and (min-width: 321px) {
+    .btn-grad {
+        background-image: linear-gradient(to right, #00a4d1 0%, #0072ff 51%, #00a4d1 100%)
+    }
+
+    /* .btn-grad {
+        padding: 8px 25px;
+        font-size: 1.2rem;
+    } */
+    .profile-pic {
+        max-width: 150px;
+    }
+}

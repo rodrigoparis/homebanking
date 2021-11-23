@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./styles/login.css" />
+  <title>Welcome to MindHub Brothers Bank</title>
+</head>
+
+<body id="app" v-cloak>
+  <div class="container">
+    <div class="forms-container">
+      <div class="signin-signup">
+        <form action="#" class="sign-in-form">
+          <h2 class="title">Sign in</h2>
+          <p class="text-danger" v-show="notIn">{{errorMessage}}</p>
+
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="email" placeholder="Username" v-model="email" />
+          </div>
+          <p v-if="!validMailLogIn" class="text-danger text-start w-75 ps-3">Please, use a valid e-mail</p>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input :type="showPassword" placeholder="Password" v-model="password" />
+          </div>
+          <div>
+            <input type="checkbox" name="togglePass" id="togglePass" v-model="isPasswordVisible">
+            <label for="togglePass" class="text-muted mx-2 mb-5">Show Password</label>
+          </div>
+          <input type="submit" class="btn" value="Sign in" @click="login($event)" :disabled="enableSignInButton()">
+          <a class="navbar-brand mt-2 text-center" href="#" id="title"><strong class="font-monospace">MINDHUB |
+            </strong>BROTHERS</a>
+          <p class="text-center">The digital solution for your lifetime savings</p>
+        </form>
+        <form action="#" class="sign-up-form">
+          <h2 class="title">Sign up</h2>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="First Name *" v-model="su_first_name" required />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Last Name *" v-model="su_last_name" />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-envelope"></i>
+            <input type="email" placeholder="E-mail *" v-model="su_email" v-if?>
+          </div>
+          <p v-show="inUseMail" class="text-danger text-start w-75 ps-5">Email already in use</p>
+          <p v-if="!validMail" class="text-danger text-start w-75 ps-5">Please, use a valid e-mail</p>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Password *" v-model="su_password" />
+          </div>
+          <p class="fs-6 text-muted text-start  w-75 ps-3" v-if="enableSignUpButton()"> * Required inputs</p>
+          <input type="submit" class="btn" value="Sign up" @click="signUp($event)" :disabled="enableSignUpButton()">
+          <a class="navbar-brand mt-2" href="#" id="title"><strong class="font-monospace">MINDHUB |
+            </strong>BROTHERS</a>
+          <p class="text-center">The digital solution for your lifetime savings</p>
+        </form>
+      </div>
+    </div>
+
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <div class="content">
+          <h3>New here ?</h3>
+          <p>
+            Sign up for the best financial options and services in accounts, cards and loans. MHBrothers always near!
+          </p>
+          <button class="btn transparent" id="sign-up-btn">
+            Sign up
+          </button>
+        </div>
+        <img src="./assets/login/feeling-lucky.png" class="image" alt="" style="
+        width: 400px;" />
+
+      </div>
+      <div class="panel right-panel">
+        <div class="content">
+          <h3>One of us ?</h3>
+          <p>
+            Sign in for the best financial options and services in accounts, cards and loans. MHBrothers always near and
+            taking good care of your savings!
+          </p>
+          <button class="btn transparent" id="sign-in-btn">
+            Sign in
+          </button>
+        </div>
+        <img src="./assets/login/feeling-thankfull.png" class="image" alt="" style="
+        width: 400px;"/>
+
+      </div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="https://unpkg.com/vue-router@4.0.5/dist/vue-router.global.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+  <script src="./scripts/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/footers/">
+  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <title>Apply for a MHBrothers card</title>
+</head>
+
+<body class="d-flex flex-column h-100 justify-content-between" id="app" v-cloak>
+
+  <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+    <div class="container-fluid" id="sticky-nav">
+      <a class="navbar-brand" href="#" id="title"><strong class="font-monospace">MHOME</strong>BANKING</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
+        aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsExample04">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+
+          <li class="nav-item">
+            <a class="nav-link active" href="./accounts.html">My Accounts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./cards.html">My Cards</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown"
+              aria-expanded="false">Others</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown04">
+              <li><a class="dropdown-item" href="./loan-application.html">Apply for Loans</a></li>
+              <li><a class="dropdown-item" href="./create-cards.html">Apply for Cards</a></li>
+            </ul>
+          </li>
+        </ul>
+        <button class="btn btn-hover" @click="logOut"><a href="./index.html"> <i class="fas fa-door-open fa-2x"
+              id="exit-btn"></i></a></button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="d-flex bd-highlight mb-3 row justify-content-between" id="header">
+    <div class="row col-12 mt-3 py-md-4 px-md-5 bd-highlight">
+      <img src="./assets/profile-pic.jpg" alt=""
+        class=" col-lg-5 profile-pic rounded-circle mx-auto mt-5 my-lg-auto mx-lg-5">
+      <p class="fs-4 text-center pt-3 text-lg-start py-lg-5 col-12 col-md-8" >As you already know, in MHBrothers
+        we take care of your savings and investments. Please find below all
+        your credit and debit cards information available.</p>
+    </div>
+  </header>
+
+  <main class="row cards-body m-5 p-5">
+    <section class="col-12 col-md-4">
+      <h2 class="text-center my-5 ">1. Choose your card type...</h2>
+      <div class="row m-5 p-5 border-end border-3">
+        <div class="my-3 pb-3 border-bottom border-3 createCard" v-if="isDebit">
+          <h3 class="text-center">DEBIT</h3>
+          <p class="m-3 lh-lg fs-6 card-p ">A debit card is a <strong>payment card that deducts money directly from your
+              checking account to pay for purchases instead of using cash.</strong> MindHub Brothers Bank issues a debit
+            card that is directly connected to your checking account. A debit card can also be used to get cash and make
+            other ATM transactions. </p>
+          <input type="radio" name="debit" id="debit" value="DEBIT" v-model="newCard.cardType" class="d-none"
+            @click="selectType">
+          <label for="debit" class="btn btn-grad mx-auto my-5">Get DEBIT</label>
+        </div>
+        <div class="my-3 pb-3 border-bottom border-3 createCard" v-if="isCredit">
+          <h3 class="text-center">CREDIT</h3>
+          <p class="m-3 lh-lg fs-6 card-p">The creditor and issuer of this card is MindHub Brothers Bank National
+            Association, pursuant to a license from Visa U.S.A. Inc., and the card is available worldwide. <strong>A
+              credit card is a payment card issued to users (cardholders) to enable the cardholder to pay a merchant for
+              goods and services based on the cardholder's accrued debt</strong>
+          </p>
+          <input type="radio" name="decreditbit" id="credit" value="CREDIT" v-model="newCard.cardType" class="d-none"
+            @click="selectType">
+          <label for="credit" class="btn btn-grad mx-auto my-5">Get CREDIT</label>
+          <a href="#sectionTwo">GET CREDIT</a>
+        </div>
+      </div>
+      <p class="text-end switch" v-show="switch_type" @click="switchTypeFx"> <i class="fas fa-arrow-left"></i>
+        Switch type </p>
+    </section>
+    <section class="col-12 col-md-4" :class="{ disabledSection: isDisabled }" id="sectionTwo">
+      <!--disabledSection -->
+      <h2 class="text-center my-5">2. Choose your benefits...</h2>
+      <div class="row m-5 p-5 border-end border-3">
+        <div class="my-3 pb-3 border-bottom border-3 createCard" v-if="isTitanium">
+          <div class="row justify-content-between">
+            <h3 class="text-center my-lg-auto col-6" :class="{'col-12': switch_benefits}">TITANIUM</h3>
+            <input type="radio" name="titanium" id="titanium" value="TITANIUM" v-model="newCard.cardColor"
+              class="d-none" @click="selectBenefits">
+            <label for="titanium" class="btn btn-grad w-auto px-3 getColor" v-if="!switch_benefits">Make it
+              TITANIUM</label>
+
+          </div>
+          <p class="m-3 lh-lg fs-6 card-p">The MindHub Titanium Family for Debit or Credit Card comes with privileges
+            that enable you and your family to spend quality time together. Create memorable experiences with your loved
+            ones with exciting offers, lifestyle benefits, dining and travel discounts.</p>
+          <div class="accordion accordion-flush my-5" id="accordionFlushTitanium">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                  CHECK TITANIUM BENEFITS
+                </button>
+              </h2>
+              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                data-bs-parent="#accordionFlushTitanium">
+                <div class="p-md-3">
+                  <ol>
+                    <li class="mt-3 px-3 fs-6"><strong>Fuel expenditure </strong> – 5% cashback.. </li>
+                    <li class="mt-3 px-3 fs-6"><strong>Telephone bills </strong> – 5% cashback.. </li>
+                    <li class="mt-3 px-3 fs-6"><strong>Utility bills</strong> – 5% cashback.. </li>
+                    <li class="mt-3 px-3 fs-6"><strong>Cash Back Redemption Rate</strong> – 1 point for every INR 150.
+                    </li>
+                    <li class="mt-3 px-3 fs-6"><strong>The Best Airfare Redemption Rate Versus the Competition
+                      </strong> – 10 point for every INR 150. </li>
+                    <li class="mt-3 px-3 fs-6"><strong>Reward points </strong> – 1 point for every INR 150. </li>
+                    <li class="mt-3 px-3 fs-6"><strong>Card Weight </strong> – 13 gr </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="my-3 pb-3 border-bottom border-3 createCard" v-if="isGold">
+          <div class="row justify-content-between">
+            <h3 class="text-center my-lg-auto col-6" :class="{'col-12': switch_benefits}">GOLD</h3>
+            <input type="radio" name="gold" id="gold" value="GOLD" v-model="newCard.cardColor" class="d-none"
+              @click="selectBenefits">
+            <label for="gold" class="btn btn-grad w-auto px-3 getColor" v-if="!switch_benefits">Make it GOLD</label>
+
+          </div>
+          <p class="m-3 lh-lg fs-6 card-p">Unlike typical credit cards that have a credit limit, the Gold Card has no
+            preset spending limit. This can allow Card Members more purchase flexibility and increase rewards-earning
+            potential. Of course, no preset spending limit doesn’t mean you’ll have access to unlimited spending, but
+            rather that the spending limit is flexible.</p>
+          <div class="accordion accordion-flush my-5" id="accordionFlushGold">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                  CHECK GOLD BENEFITS
+                </button>
+              </h2>
+              <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                data-bs-parent="#accordionFlushGold">
+                <div class="p-md-3">
+                  <ol>
+                    <li class="mt-3 px-3 fs-6"><strong>Fuel expenditure </strong> – 2% cashback.. </li>
+                    <li class="mt-3 px-3 fs-6"><strong>Telephone bills </strong> – 2% cashback.. </li>
+                    <li class="mt-3 px-3 fs-6"><strong>Utility bills</strong> – 2% cashback.. </li>
+                    <li class="mt-3 px-3 fs-6"><strong>Cash Back Redemption Rate</strong> – 1 point for every INR 150.
+                    </li>
+                    <li class="mt-3 px-3 fs-6"><strong>Reward points </strong> – 1 point for every INR 150. </li>
+                    <li class="mt-3 px-3 fs-6"><strong>Card Weight </strong> – 20 gr </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="my-3 pb-3 border-bottom border-3 createCard" v-if="isSilver">
+          <div class="row justify-content-between">
+            <h3 class="text-center my-lg-auto col-6" :class="{'col-12': switch_benefits}">SILVER</h3>
+            <input type="radio" name="silver" id="silver" value="SILVER" v-model="newCard.cardColor" class="d-none"
+              @click="selectBenefits">
+            <label for="silver" class="btn btn-grad w-auto px-3 getColor" v-if="!switch_benefits">Make it
+              SILVER</label>
+          </div>
+          <p class="m-3 lh-lg fs-6 card-p">Silver Gate Cards are a type of Gate Card framed in Silver. They are the most
+            basic Gate Cards and only a few of them have text. When looking for these cards it is important not only to
+            consider putting in a Gate Card that give you a high boost, but also not so great boosts for your opponent.
+            Gallery</p>
+          <div class="accordion accordion-flush  my-5" id="accordionFlushSilver">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                  CHECK SILVER BENEFITS
+                </button>
+              </h2>
+              <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                data-bs-parent="#accordionFlushSilver">
+                <div class="p-md-3">
+                  <ol>
+                    <li class="mt-3 px-3 fs-6"><strong>Fuel expenditure </strong> – 0.5% cashback.. </li>
+                    <li class="mt-3 px-3 fs-6"><strong>Telephone bills </strong> – 0.5% cashback.. </li>
+                    <li class="mt-3 px-3 fs-6"><strong>Reward points </strong> – 0.5 point for every INR 150. </li>
+                    <li class="mt-3 px-3 fs-6"><strong>Card Weight </strong> – 25 gr </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="text-end switch" v-if="switch_benefits" @click="switchBenefitsFx"> <i class="fas fa-arrow-left"></i>
+        Switch benefits </p>
+
+    </section>
+    <section class="col-12 col-md-4" :class="{ disabledSection: isCheckable}">
+      <h2 class="text-center my-5">3. Check & Send Request...</h2>
+      <div class="my-3 pb-3 border-bottom border-3 createCard">
+        <div class="mx-auto col-12 disabledCard ">
+          <div class="row card-own">
+            <div class="card-inner">
+              <div class="front" :class="newCard.cardColor.toLowerCase()">
+                <img src="./assets/images/map4.png" alt="" class="map-img">
+                <div class="fila">
+                  <img src="./assets/images/chip.png" class="chip" alt="">
+                  <div>
+                    <img src="./assets/images/visa-debit.png" id="visa-logo" alt="">
+                    <p class="text-end mb-0">{{newCard.cardColor}}</p>
+                  </div>
+                </div>
+                <div class="fila card-number">
+                  <p>****</p>
+                  <p>****</p>
+                  <p>****</p>
+                  <p>****</p>
+                </div>
+                <div class="fila card-holder">
+                  <p>CARD HOLDER</p>
+                  <p>VALID TILL</p>
+                </div>
+                <div class="fila name">
+                  <p>{{cardHolder}}</p>
+                  <p>{{validDate}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row p-md-3">
+          <p class="fs-4">Summary...</p>
+          <ol>
+            <li class="mt-3 px-3 fs-5"><strong>Card Type: </strong> {{newCard.cardType}} </li>
+            <li class="mt-3 px-3 fs-5"><strong>Card Benefits: </strong> {{newCard.cardColor}} </li>
+            <li class="mt-3 px-3 fs-5"><strong>Valid till: </strong> 10/25 </li>
+          </ol>
+          <button class="btn btn-grad w-auto mx-auto px-3 justify-content-center" @click="createNewCard">Send Request!</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <footer
+    class="d-flex flex-wrap justify-content-center justify-content-md-between align-items-center py-3 my-4 footer mt-auto border-top">
+    <p class="col-md-4 mb-0 text-muted ms-4">&copy; 2021 MindHub, Inc</p>
+    <a class="navbar-brand" href="#" id="title"><strong class="font-monospace">MHOME</strong>BANKING</a>
+    <ul class="col-12 nav col-md-5 justify-content-center justify-content-md-end me-4">
+      <li class="nav-item"><a href="./index.html" class="nav-link px-2 text-muted">Home</a></li>
+      <li class="nav-item"><a href="./accounts.html" class="nav-link px-2 text-muted">My Accounts</a></li>
+      <li class="nav-item"><a href="./cards.html" class="nav-link px-2 text-muted">My Cards</a></li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown"
+          aria-expanded="false"></a>
+        <ul class="dropdown-menu" aria-labelledby="dropdown04">
+          <li><a class="dropdown-item" href="./loan-application.html">Apply for Loans</a></li>
+          <li><a class="dropdown-item" href="./create-cards.html">Apply for Cards</a></li>
+        </ul>
+      </li>
+    </ul>
+  </footer>
+
+
+  <!-- Axios -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <!-- SweetAlert -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <!-- Vue -->
+  <script src="https://unpkg.com/vue@next"></script>
+  <!-- PieChart -->
+  <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+  <!-- Main JS -->
+  <script src="./scripts/create-cards.js"></script>
+
+</body>
+
+</html>

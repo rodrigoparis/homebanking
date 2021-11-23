@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/footers/">
+  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <title>Apply for a brand new Loan</title>
+</head>
+
+<body class="d-flex flex-column h-100 justify-content-between" id="app" v-cloak>
+
+  <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+    <div class="container-fluid" id="sticky-nav">
+      <a class="navbar-brand" href="#" id="title"><strong class="font-monospace">MHOME</strong>BANKING</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
+        aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsExample04">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+
+          <li class="nav-item">
+            <a class="nav-link active" href="./accounts.html">My Accounts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./cards.html">My Cards</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown"
+              aria-expanded="false">Others</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown04">
+              <li><a class="dropdown-item" href="./loan-application.html">Apply for Loans</a></li>
+              <li><a class="dropdown-item" href="./create-cards.html">Apply for Cards</a></li>
+            </ul>
+          </li>
+        </ul>
+        <button class="btn btn-hover" @click="logOut"><a href="./index.html"> <i class="fas fa-door-open fa-2x"
+              id="exit-btn"></i></a></button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="d-flex bd-highlight mb-3 justify-content-between" id="header">
+    <div class="row col-12 mt-3 py-md-4 px-md-5 bd-highlight">
+      <img src="./assets/profile-pic.jpg" alt=""
+        class=" col-lg-5 profile-pic rounded-circle mx-auto mt-5 my-lg-auto mx-lg-5">
+      <p class="fs-4 text-center pt-3 text-lg-start py-lg-5 col-12 col-md-8" >MHBrothers offers pre-approved loan for your Personal, Auto or Mortgage life project.</p>
+    </div>
+  </header>
+
+  <main class="row cards-body m-5 p-5" >
+    <section class="col-12 col-md-6 border-end border-3">
+      <h3 class="text-center my-5">1. Choose the Loan that suits you best...</h3>
+      <div class="my-2  mx-5 p-2" v-if="applyForLoan.name == 'Mortgage'">
+        <h4> Mortgage Loan Description:</h4>
+        <p> MAX AMOUNT: {{maxAmount}}</p>
+        <p class="card-p">A mortgage loan or simply mortgage is a loan used either by purchasers of real property to
+          raise funds to buy
+          real estate, or alternatively by existing property owners to raise funds for any purpose while putting a lien
+          on the property being mortgaged. The loan is "secured" on the borrower's property through a process known as
+          mortgage origination.</p>
+      </div>
+      <div class="my-2  mx-3 p-2" v-else-if="applyForLoan.name == 'Personal'">
+        <h4> Personal Loan Description:</h4>
+        <p> MAX AMOUNT: {{maxAmount}}</p>
+        <p class="card-p">A personal loan, as opposed to a commercial or business loan, is a loan to an individual for
+          his or her own
+          use. This type of loan is smaller than a mortgage and is typically used to purchase a car, renovate the home,
+          pay for a vacation, to finance a wedding, to cover funeral costs or deal with an unexpected event.</p>
+      </div>
+      <div class="my-2  mx-5 p-2" v-else>
+        <h4> Auto Loan Description:</h4>
+        <p> MAX AMOUNT: {{maxAmount}}</p>
+        <p class="card-p">A car loan (also known as an automobile loan, or auto loan) is a sum of money a consumer
+          borrows in order to
+          purchase a car. In most cases when purchasing a car, a borrower will specifically apply for a car loan;
+          however, a consumer can also use a personal loan (a loan obtained by an individual to use at his or her
+          discretion) for the same purpose.</p>
+      </div>
+      <div class="row  justify-content-center">
+        <label class="row account col-4 border justify-content-center" :class="{selected : isLoanSelected(loan.name)}"
+          :for="loan.name" v-for="loan in availableLoans">
+          <h4 class="text-center p-2 my-auto">{{loan.name}}</h4>
+          <input type="radio" :id="loan.name" :value="loan.name" v-model="applyForLoan.name" class="d-none" @click="selectedLoan(loan.name)">
+        </label>
+      </div>
+    </section>
+
+    <section class="col-12 col-md-6" :class="{disabledSection : unavailableSection}">
+      <h3 class="text-center my-5">2. Some more information...</h3>
+      <div class="col-md mt-4">
+        <div class="row align-items-center col-12 mx-auto">
+          <div class="row align-items-center col-12 mx-auto justify-content-between ">
+            <label for="loanAmount" class="col-12 col-md-8 fw-bold">Which amount would you like to request?</label>
+            <div class="col-md-3">
+              <div class="input-group my-3 ms-auto">
+                <span class="input-group-text" id="basic-addon1">$</span>
+                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)"
+                  v-model="applyForLoan.amount" min="1" id="loanAmount">
+              </div>
+            </div>
+            <div class="input-group col-12 my-3">
+              <label for="floatingSelectd" class="mx-auto fw-bold">On which account would you like to deposit your
+                loan?</label>
+              <select class="form-select ms-md-5" id="floatingSelect" aria-label="Floating label select example"
+                v-model="applyForLoan.accountNumber">
+                <option disabled>Choose your account</option>
+                <option v-for="account in clientData.accounts" :value="account.number">{{account.number}}: (${{account.balance}})</option>
+              </select>
+            </div>
+            <div class="input-group col-12 my-3">
+              <label for="floatingSelectd" class="mx-auto fw-bold ">How many instalments would you like to set?</label>
+              <select class="form-select ms-md-5" id="floatingSelect" aria-label="Floating label select example"
+                v-model="applyForLoan.payments">
+                <option selected disabled>Choose amount of payments</option>
+                <option v-for="payment in paymentOptions" :value="payment">{{payment}}</option>
+              </select>
+            </div>
+          </div>
+          <p :class="{disabledSection : !readyToApply}">
+            <a href="#applyNow" class="align-self-end btn btn-grad w-25 ms-auto my-5">NEXT</a>
+          </p>
+        </div>
+      </div>
+
+    </section>
+    <section class="col-12 border-top border-3 mt-5 pt-5" v-if="readyToApply" id="applyNow">
+      <h3 class="text-center mt-5">3. Almost there...</h3>
+      <div class="col-8 mx-auto justify-content-end rounded border-3 p-md-5">
+        <p class="fs-3 card-p">You will apply for a brand new <span class="fw-bold">{{applyForLoan.name}} loan</span>.
+          This contract will have immediate effect on your account number <span
+            class="fw-bold">{{applyForLoan.accountNumber}}</span> and will be credited with an amount of <span
+            class="fw-bold">${{applyForLoan.amount}}</span>. A <span
+            class="fw-bold">{{applyForLoan.payments}}-installment payment plan</span> will be applied with an interest
+          of 20% on the total amount requested. The amount to be paid will be <span
+            class="fw-bold">{{installmentPayment}} per installment</span>. In case of meeting the basic requirements of
+          the loan, it will be pre-approved immediately. If you agree with this terms and conditions, click on the
+          button bellow to apply.</p>
+        <button type="button" class="btn btn-grad mx-auto" @click="applyNow(applyForLoan.accountNumber)">Apply for Loan!</button>
+      </div>
+    </section>
+  </main>
+
+
+  <footer
+    class="d-flex flex-wrap justify-content-center justify-content-md-between align-items-center py-3 my-4 footer mt-auto border-top">
+    <p class="col-md-4 mb-0 text-muted ms-4">&copy; 2021 MindHub, Inc</p>
+    <a class="navbar-brand" href="#" id="title"><strong class="font-monospace">MHOME</strong>BANKING</a>
+    <ul class="col-12 nav col-md-5 justify-content-center justify-content-md-end me-4">
+      <li class="nav-item"><a href="./index.html" class="nav-link px-2 text-muted">Home</a></li>
+      <li class="nav-item"><a href="./accounts.html" class="nav-link px-2 text-muted">My Accounts</a></li>
+      <li class="nav-item"><a href="./cards.html" class="nav-link px-2 text-muted">My Cards</a></li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown"
+          aria-expanded="false"></a>
+        <ul class="dropdown-menu" aria-labelledby="dropdown04">
+          <li><a class="dropdown-item" href="./loan-application.html">Apply for Loans</a></li>
+          <li><a class="dropdown-item" href="./create-cards.html">Apply for Cards</a></li>
+        </ul>
+      </li>
+    </ul>
+  </footer>
+
+
+  <!-- Axios -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <!-- SweetAlert -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <!-- Vue -->
+  <script src="https://unpkg.com/vue@next"></script>
+  <!-- PieChart -->
+  <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+  <!-- Main JS -->
+  <script src="./scripts/loan-application.js"></script>
+
+</body>
+
+</html>
