@@ -49,9 +49,8 @@ public class PDFServiceImpl implements PDFService {
     private AccountRepository accountRepo;
 
     @Override
-    public void generateAccountResume(HttpServletResponse response, Client client, String accountNumber) throws IOException {
+    public void generateAccountResume(HttpServletResponse response, Client client, Account account) throws IOException {
 
-        Account account = accountRepo.findByNumber(accountNumber).orElse(null);
         //La linea 56 perimte que una vez creado el pdf se guarde en la response,
         //eso hace que se descargue al encontrar la respuesta
         PdfWriter pdfWriter = new PdfWriter(response.getOutputStream());

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.services.implement.PDFServiceImpl;
 import org.springframework.http.HttpStatus;
 import com.mindhub.homebanking.models.Client;
@@ -29,6 +31,9 @@ public class AccountController {
     private ClientRepository clientRepository;
 
     @Autowired
+    private AccountRepository accountRepository;
+
+    @Autowired
     private AccountServiceImpl accountServiceImpl;
 
     @Autowired
@@ -41,7 +46,14 @@ public class AccountController {
     }
 
     @GetMapping("/accounts/{id}")
-    public AccountDTO getAccountDTO(@PathVariable Long id) {
+    public AccountDTO getAccountDTO(HttpServletResponse response, Authentication auth, @PathVariable Long id) throws IOException {
+        Client client = clientRepository.findByEmail(auth.getName()).orElse(null);
+        Account account = accountRepository.findById(id).orElse(null);
+
+        if (!client.getAccounts().contains(account)){
+            response.sendError(401);
+            return null;
+        }
         return accountServiceImpl.getAccountById(id);
     }
 
@@ -71,14 +83,20 @@ public class AccountController {
 
     @PostMapping("/account/summary")
     public void getAccountSummary(HttpServletResponse response, Authentication auth, String accountNumber) throws IOException {
+        Client client = clientRepository.findByEmail(auth.getName()).orElse(null);
+        Account account = accountRepository.findByNumber(accountNumber).orElse(null);
+
+        if (!client.getAccounts().contains(account)){
+            response.sendRedirect("/index.html");
+            return;
+        }
         response.setContentType("application/pdf");
         String date = LocalDateTime.now().format(ISO_LOCAL_DATE);
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=" + accountNumber + "-summary-" + date + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        Client client = clientRepository.findByEmail(auth.getName()).orElse(null);
-        pdfService.generateAccountResume(response,client, accountNumber);
+        pdfService.generateAccountResume(response,client, account);
 
 
     }
