@@ -171,22 +171,16 @@ public class PDFServiceImpl implements PDFService {
         cell.setBackgroundColor(ColorConstants.LIGHT_GRAY);
         footer.addCell(cell);
 
-        String imageFile = "C:\\Users\\rpari\\Desktop\\EN PROCESO\\HOMEBANKING\\Rodrigo Paris -  M3 T3\\homebanking\\src\\main\\resources\\static\\web\\assets\\Captura.png";
-        ImageData data = ImageDataFactory.create(imageFile);
-        Image img = new Image(data);
 
-
-        pdfDocument.addEventHandler(PdfDocumentEvent.END_PAGE, new TableFooterEventHandler(footer, img));
+        pdfDocument.addEventHandler(PdfDocumentEvent.END_PAGE, new TableFooterEventHandler(footer));
         document.close();
     }
 
     private static class TableFooterEventHandler implements IEventHandler {
         private Table table;
-        private Image qr;
 
-        public TableFooterEventHandler(Table table, Image qr) {
+        public TableFooterEventHandler(Table table) {
             this.table = table;
-            this.qr = qr;
         }
 
         @Override
@@ -198,7 +192,6 @@ public class PDFServiceImpl implements PDFService {
 
             new Canvas(canvas, new Rectangle(36, 20, page.getPageSize().getWidth() - 72, 50))
                     .add(table)
-                    .add(qr)
                     .close();
         }
     }
