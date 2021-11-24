@@ -100,12 +100,6 @@ const app = Vue.createApp({
                 this.isDebit = false;
             }
             this.isDisabled = false;
-            let height = e.path[3].getBoundingClientRect().height;
-            if (window.innerWidth <= 500) {
-                window.scrollTo(0, height - 250)
-            }else{
-                e.path[3].scrollIntoView()
-            }
 
         },
         switchTypeFx() {
