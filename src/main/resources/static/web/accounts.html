@@ -90,11 +90,14 @@
                     <button type="button" class="btn btn-grad" @click="createAccount">Create New Account</button>
                 </div>
             </section>
-            <aside class="col-12 col-lg-4 row justify-content-center">
+            <div class=" col-12 col-lg-4 mt-3" v-if="!savings>0">
+                <p class="text-primary text-center fs-6 p-4 border border-3 rounded-3 accordion-body">We'll show you in this section a graphic with the details of your savings </a></p>
+              </div>    
+            <aside class="col-12 col-lg-4 row justify-content-center" :class="{'d-none' : hasGraphics}">
                 <!-- Sigo investigando, eventualmente me gustaria que  las etiquetas sean nombres de las cuentas en vez de los números -->
                 <h2>Savings at Glance</h2>
                 <!-- Me gustaría que en User Settings se pudiera acceder a modificar ciertos datos de contacto y se pudiera consultar atributos del cliente CBU, número de Cuenta,etc -->
-                <div id="chartdiv" style="height: 300px;"></div>
+                <div id="chartdiv" style="height: 300px;" ></div>
                 <div class="col-6">
                     <h4 class="text-success">${{savings}}</h4>
                     <h5 class="text-muted">Total Savings</h5>

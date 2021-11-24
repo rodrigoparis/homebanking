@@ -179,6 +179,9 @@ const app = Vue.createApp({
     computed: {
         maxAccounts() {
             return this.clientData.accounts.length < 3
+        },
+        hasGraphics(){
+            return !this.savings > 0
         }
 
     }

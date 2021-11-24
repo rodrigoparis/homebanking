@@ -237,6 +237,9 @@ const app = Vue.createApp({
                 || transaction.amount.toString().includes(this.search.toLowerCase()) || transaction.date
                     .includes(this.search)
                 || transaction.type.toLowerCase().includes(this.search.toLowerCase()))
+        },
+        hasGraphics(){
+            return this.transactions.length == 0
         }
     }
 })
