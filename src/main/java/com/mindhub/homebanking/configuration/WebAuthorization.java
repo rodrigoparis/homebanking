@@ -26,10 +26,9 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
         //Required authorization to access different endpoints
         http.authorizeRequests()
                 .antMatchers("/web/index.html", "/web/styles/**", "/web/scripts/**", "/web/assets/**").permitAll()
-                .antMatchers("/api/clients/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/**").permitAll()
-                //revisar /api/manager y agregar /api/current
-                .antMatchers("/h2-console/**", "/rest/**","/api/manager/**").hasAuthority("ADMIN")
+                .antMatchers("/h2-console/**", "/rest/**","/api/manager/**","/api/accounts","/api/clients").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
+                .antMatchers("/api/clients/current").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/**").hasAuthority("CLIENT")
                 .antMatchers("/api/**", "/web/**").authenticated()
                 .anyRequest().denyAll();

@@ -37,7 +37,6 @@ public class ClientController {
     private EmailValidator emailValidator;
 
     @GetMapping("/clients")
-    //Acá podria usar el @GetMapping("/clients")
     public Set<ClientDTO> getClients() {
         return clientRepository.findAll().stream().map(ClientDTO::new).collect(Collectors.toSet());
     }
