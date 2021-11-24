@@ -102,7 +102,7 @@ const app = Vue.createApp({
 
         },
         logOut() {
-            console.log("hola")
+         
             axios.post('/api/logout')
                 .then(response => {
                     console.log('signed out!!!')

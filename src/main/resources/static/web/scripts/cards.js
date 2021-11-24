@@ -52,7 +52,8 @@ const app = Vue.createApp({
         },
         isOverdue(date) {
             const today = new Date();
-            const thruDate = new Date(date)       
+            const thruDate = new Date(date)  
+           
             return today > thruDate
         }
     }
