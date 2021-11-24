@@ -12,8 +12,8 @@
   <title>Welcome to MindHub Brothers Bank</title>
 </head>
 
-<body id="app" v-cloak>
-  <div class="container">
+<body>
+  <div class="container" id="app" v-cloak>
     <div class="forms-container">
       <div class="signin-signup">
         <form action="#" class="sign-in-form">
@@ -22,7 +22,7 @@
 
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="email" placeholder="Username" v-model="email" />
+            <input type="email" placeholder="Email" v-model="email">
           </div>
           <p v-if="!validMailLogIn" class="text-danger text-start w-75 ps-3">Please, use a valid e-mail</p>
           <div class="input-field">
@@ -50,7 +50,7 @@
           </div>
           <div class="input-field">
             <i class="fas fa-envelope"></i>
-            <input type="email" placeholder="E-mail *" v-model="su_email" v-if?>
+            <input type="email" placeholder="E-mail *" v-model="su_email">
           </div>
           <p v-show="inUseMail" class="text-danger text-start w-75 ps-5">Email already in use</p>
           <p v-if="!validMail" class="text-danger text-start w-75 ps-5">Please, use a valid e-mail</p>
@@ -94,7 +94,7 @@
           </button>
         </div>
         <img src="./assets/login/feeling-thankfull.png" class="image" alt="" style="
-        width: 400px;"/>
+        width: 400px;" />
 
       </div>
     </div>

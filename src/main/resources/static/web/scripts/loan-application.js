@@ -26,7 +26,7 @@ const app = Vue.createApp({
                     this.availableLoans = response.data
                 })
                 .catch(e => {
-                    console.log(e)
+                    
                 })
 
             axios.get('/api/clients/current')
@@ -34,27 +34,23 @@ const app = Vue.createApp({
                     this.clientData = response.data
                 })
                 .catch(e => {
-                    console.log(e)
+                    
                 })
         },
         selectedLoan(e) {
             this.unavailableSection = false
             let selection = this.availableLoans.find(loan => loan.name == e)
             this.paymentOptions = this.availableLoans.find(loan => loan.name == e).payments
-            console.log(selection.maxAmount);
             this.maxAmount = selection.maxAmount
         },
         isLoanSelected(e) {
             return e == this.applyForLoan.name
         },
         applyNow(e) {
-            console.log(e);
-            console.log(this.clientData.accounts.find(account => account.number == e).account_id);
-
+        
             this.selectedAccountId = this.clientData.accounts.find(account => account.number == e).account_id
             axios.post('/api/loans', this.applyForLoan)
                 .then(e => {
-                    console.log(e.data);
                     this.successMessage(e.data)
                 }).catch(e => {
                     this.errorMessage(e.response.data)

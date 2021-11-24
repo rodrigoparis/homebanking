@@ -20,7 +20,7 @@ const app = Vue.createApp({
                     this.creditCards = this.clientData.cards.filter(card => card.type == 'CREDIT')
                 })
                 .catch(e => {
-                    console.log(e)
+                    
                 })
         },
         currentDate() {

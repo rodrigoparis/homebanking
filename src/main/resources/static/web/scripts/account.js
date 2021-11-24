@@ -151,12 +151,12 @@ const app = Vue.createApp({
         loadData() {
             axios.get(`https://free.currconv.com/api/v7/convert?q=EUR_ARS,EUR_USD&compact=ultra&apiKey=3336f2ed8252b2b54d39`)
                 .then(response => {
-                    console.log(response);
+                    ;
                     this.ARS = response.data.EUR_ARS
                     this.USD = response.data.EUR_USD
                 })
                 .catch(e => {
-                    console.log(e)
+                    
                 })
             axios.get(`/api/accounts/${this.currentAccountID}`)
                 .then(response => {
@@ -169,7 +169,7 @@ const app = Vue.createApp({
 
                 })
                 .catch(e => {
-                    console.log(e)
+                    
                 })
             axios.get(`/api/clients/current`)
                 .then(response => {
@@ -179,7 +179,7 @@ const app = Vue.createApp({
                     });
                 })
                 .catch(e => {
-                    console.log(e)
+                    
                 })
         },
         currentDate() {
@@ -194,26 +194,11 @@ const app = Vue.createApp({
         logout() {
             axios.post('/api/logout')
                 .then(response => {
-                    console.log('signed out!!!')
                 })
-                .catch(error => {
-                    if (error.response) {
-                        // The request was made and the server responded with a status code
-                        // that falls out of the range of 2xx
-                        console.log(error.response.data);
-                        console.log(error.response.status);
-                        console.log(error.response.headers);
-                    } else if (error.request) {
-                        // The request was made but no response was received
-                        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                        // http.ClientRequest in node.js
-                        console.log(error.request);
-                    } else {
-                        // Something happened in setting up the request that triggered an Error
-                        console.log('Error', error.message);
-                    }
-                    console.log(error.config);
-                })
+                .catch(error => console.log(error)) 
+                .finally(
+                    window.location.href = "./index.html"
+                )               
         },
         getSummary() {
             axios.post('/api/account/summary', `accountNumber=${this.accountData.number}`, { responseType: 'blob' })

@@ -80,14 +80,12 @@ const app = Vue.createApp({
             buttons: "Got it!",
             icon: "success"
           }).then((value) => {
-            console.log(value)
             if (value) {
               window.location.href = "./index.html"
             }
           })
         })
         .catch(error => {
-          console.log(error.response.data)
           if (error.response.status == 403) {
             if (error.response.data == "Email already in use")
               this.inUseMail = true
@@ -113,7 +111,7 @@ const app = Vue.createApp({
           } else {
             window.location.href = "./accounts.html";
           }
-          console.log(response)
+          
         })
         .catch(error => {
           if (error.response.status == 404) {

@@ -33,11 +33,11 @@ const app = Vue.createApp({
                     this.agenda = values
                 })
                 .catch(e => {
-                    console.log(e)
+                    
                 })
         },
         isOriginSelected(e) {
-            console.log(e)
+            
             return e == this.newTransfer.origin
         },
         isDestinationSelected(e) {

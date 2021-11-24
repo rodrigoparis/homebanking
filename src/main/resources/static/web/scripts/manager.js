@@ -1,4 +1,3 @@
-console.log("HOLA")
 const app = Vue.createApp({
     data() {
         return {
@@ -21,7 +20,7 @@ const app = Vue.createApp({
                     this.users = response.data._embedded.clients
                 })
                 .catch(e => {
-                    console.log(e)
+                    
                 })
         },
         postClient() { 
@@ -32,7 +31,7 @@ const app = Vue.createApp({
             }).then(response => {
                 this.loadData();
             }).catch(e => {
-                console.log(e);
+                ;
             })
         },
         addClient() {
@@ -60,17 +59,11 @@ const app = Vue.createApp({
             return re.test(email);
         },
         deleteClient(client) {
-        console.log(client._links.self.href)
             if (confirm('Do you really want to delete this Client?')) {
                 axios.delete(client._links.self.href)
                     .then(response => {
-                        console.log("registro eliminado")
                         this.loadData();
-                    })
-                    .catch(e => {
-                        console.log(e)
-                        console.log("registro no fue eliminado")
-                    })
+                    })                   
             }
         }
     }

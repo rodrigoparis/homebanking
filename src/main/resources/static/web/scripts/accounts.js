@@ -64,7 +64,7 @@ const app = Vue.createApp({
                     this.checkLoan();
                 })
                 .catch(e => {
-                    console.log(e)
+                    
                 })
         },
         currentDate() {
@@ -101,13 +101,10 @@ const app = Vue.createApp({
             return `./account.html?id=${account.account_id}&client_id=${this.clientData.id}`
 
         },
-        logOut() {
-         
+        logOut() {         
             axios.post('/api/logout')
                 .then(response => {
-                    console.log('signed out!!!')
                     window.location.href = "./index.html";
-
                 })
                 .catch(error => {
                     console.log(error);
@@ -188,108 +185,3 @@ const app = Vue.createApp({
 })
 const debug = app.mount("#app")
 
-
-
-
-
-// let dt = new Date().toISOString();
-// console.log(dt)
-
-/*
-const app = Vue.createApp({
-    data() {
-        return {
-            clientData: [],
-            accountsLink: "",
-            first_name: "",
-            last_name: "",
-            email: "",
-            chart: "",
-            series: "",
-            pieData: [],
-            savings: 0,
-            currentAccount: 0,
-            creationDate: "",
-            isLoan: true,
-            clientID: 0
-        }
-    },
-    created() {
-        this.getClientId();
-        this.createPie();
-        this.loadData();
-    },
-
-    methods: {
-        checkLoan() {
-            this.isLoan = this.clientData.clientLoans.length >= 0
-        },
-        getClientId() {
-            const urlSearchParams = new URLSearchParams(window.location.search);
-            this.clientID = urlSearchParams.get("client_id")
-        },
-        loadData() {
-            axios.get(`/api/clients/${this.clientID}`)
-                .then(response => {
-                    this.clientData = response.data
-                    this.first_name = this.clientData.first_name
-                    this.last_name = this.clientData.last_name
-                    response.data.clientLoans.sort((a, b) => parseInt(a.clientLoan_id - b.clientLoan_id))
-                    response.data.accounts.forEach(element => {
-                        this.pieData.push(
-                            {
-                                "account": element.number,
-                                "balance": element.balance
-                            }
-                        )
-                        this.savings += element.balance;
-                    });
-                    this.chart.data = this.pieData
-                    this.checkLoan();
-                })
-                .catch(e => {
-                    console.log(e)
-                })
-        },
-        currentDate() {
-            const current = new Date();
-            const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
-            return date;
-        },
-        createPie() {
-            am4core.useTheme(am4themes_animated);
-            this.chart = am4core.create("chartdiv", am4charts.PieChart);
-            this.series = this.chart.series.push(new am4charts.PieSeries());
-            this.series.dataFields.value = "balance";
-            this.series.dataFields.category = "account";
-            // this creates initial animation
-            this.series.hiddenState.properties.opacity = 1;
-            this.series.hiddenState.properties.endAngle = -90;
-            this.series.hiddenState.properties.startAngle = -90;
-            this.series.ticks.template.disabled = true;
-            this.series.alignLabels = false;
-            //{category}\n
-            this.series.labels.template.text = "${value}";
-            this.series.labels.template.radius = am4core.percent(-40);
-            this.series.labels.template.fill = am4core.color("black");
-            // this.chart.legend = new am4charts.Legend();
-        },
-        setCurrent(account) {
-            this.currentAccount = account.balance;
-        },
-        openingDate(account) {
-            let dt = new Date(account.creationDate)
-
-            console.log(dt.getFullYear());
-            console.log(dt.getFullYear());
-
-            return account.creationDate.slice(0, 10)
-        },
-        getID(account) {
-            return `./account.html?id=${account.account_id}&client_id=${this.clientData.id}`
-        }
-    }
-})
-const debug = app.mount("#app")
-
-*/
