@@ -149,10 +149,11 @@ const app = Vue.createApp({
             this.currentAccountID = urlSearchParams.get("id")
         },
         loadData() {
-            axios.get(`http://api.exchangeratesapi.io/latest?access_key=90b9effc5bb1f8bbf04b37a03de5b494&base=EUR&symbols=USD,ARS`)
+            axios.get(`https://free.currconv.com/api/v7/convert?q=EUR_ARS,EUR_USD&compact=ultra&apiKey=3336f2ed8252b2b54d39`)
                 .then(response => {
-                    this.ARS = response.data.rates.ARS
-                    this.USD = response.data.rates.USD
+                    console.log(response);
+                    this.ARS = response.data.EUR_ARS
+                    this.USD = response.data.EUR_USD
                 })
                 .catch(e => {
                     console.log(e)
@@ -161,7 +162,6 @@ const app = Vue.createApp({
                 .then(response => {
                     this.json = response
                     this.accountData = response.data
-                    // this.transactions = response.data.transactions.sort((a, b) => parseInt(a.id - b.id))
                     this.transactions = response.data.transactions.sort((a, b) => new Date(b.date) - new Date(a.date))
 
                     this.createGraphic();
@@ -238,7 +238,7 @@ const app = Vue.createApp({
                     .includes(this.search)
                 || transaction.type.toLowerCase().includes(this.search.toLowerCase()))
         },
-        hasGraphics(){
+        hasGraphics() {
             return this.transactions.length == 0
         }
     }
