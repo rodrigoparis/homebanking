@@ -84,6 +84,12 @@ const app = Vue.createApp({
                 })
         },
         selectType(e) {
+            let height = e.path[3].getBoundingClientRect().height;
+            if (window.innerWidth <= 500) {
+                window.scrollTo(0, height - 250)
+            }else{
+                e.path[3].scrollIntoView()
+            }
 
             this.switch_type = true;
             if (e.target.value == "DEBIT") {
