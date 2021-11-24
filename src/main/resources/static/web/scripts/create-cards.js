@@ -84,11 +84,8 @@ const app = Vue.createApp({
                 })
         },
         selectType(e) {
-            let height = e.path[3].getBoundingClientRect().height;
-            if (window.innerWidth <= 500) {
-                window.scrollTo(0, height - 250)
-            }else{
-                e.path[3].scrollIntoView()
+            if (window.innerWidth <= 700) {
+                this.$refs.sectionTwo.scrollIntoView({ block: "end", behavior: "smooth" })
             }
 
             this.switch_type = true;
@@ -103,6 +100,9 @@ const app = Vue.createApp({
 
         },
         switchTypeFx() {
+            if (window.innerWidth <= 700) {
+                this.$refs.sectionOne.scrollIntoView({ block: "start", behavior: "smooth" })
+            }
             this.isCredit = true;
             this.isDebit = true;
             this.switch_type = false;
@@ -110,6 +110,9 @@ const app = Vue.createApp({
             this.isCheckable = true;
         },
         selectBenefits(e) {
+            if (window.innerWidth <= 700) {
+                this.$refs.sectionThree.scrollIntoView({ block: "end", behavior: "smooth" })
+            }
             this.switch_benefits = true;
             if (e.target.value == "TITANIUM") {
                 this.isTitanium = true;
@@ -127,6 +130,9 @@ const app = Vue.createApp({
             this.isCheckable = false;
         },
         switchBenefitsFx() {
+            if (window.innerWidth <= 700) {
+                this.$refs.sectionTwo.scrollIntoView({ block: "start", behavior: "smooth" })
+            }
             this.isTitanium = true;
             this.isGold = true;
             this.isSilver = true;

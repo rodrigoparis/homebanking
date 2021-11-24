@@ -61,7 +61,7 @@
 
   <main class="row cards-body m-5 p-5">
     <section class="col-12 col-md-4">
-      <h2 class="text-center my-5">1. Choose your card type...</h2>
+      <h2 class="text-center my-5" ref="sectionOne">1. Choose your card type...</h2>
       <div class="row m-5 p-5 border-end border-3">
         <div class="my-3 pb-3 border-bottom border-3 createCard" v-show="isDebit">
           <h3 class="text-center">DEBIT</h3>
@@ -88,11 +88,11 @@
       <p class="text-end switch" v-show="switch_type" @click="switchTypeFx"> <i class="fas fa-arrow-left"></i>
         Switch type </p>
     </section>
-    <section class="col-12 col-md-4" :class="{ disabledSection: isDisabled }" ref="sectionTwo">
+    <section class="col-12 col-md-4" :class="{ disabledSection: isDisabled }">
       <!--disabledSection -->
-      <h2 class="text-center my-5">2. Choose your benefits...</h2>
+      <h2 class="text-center my-5" ref="sectionTwo">2. Choose your benefits...</h2>
       <div class="row m-5 p-5 border-end border-3">
-        <div class="my-1 pb-1 border-bottom border-3 createCard" v-if="isTitanium">
+        <div class="my-1 pb-1" v-if="isTitanium">
           <div class="row justify-content-between">
             <h3 class="text-center my-lg-auto col-6" :class="{'col-12': switch_benefits}">TITANIUM</h3>
             <input type="radio" name="titanium" id="titanium" value="TITANIUM" v-model="newCard.cardColor"
@@ -132,7 +132,7 @@
             </div>
           </div>
         </div>
-        <div class="my-1 pb-1 border-bottom border-3 createCard" v-if="isGold">
+        <div class="my-1 pb-1" v-if="isGold">
           <div class="row justify-content-between">
             <h3 class="text-center my-lg-auto col-6" :class="{'col-12': switch_benefits}">GOLD</h3>
             <input type="radio" name="gold" id="gold" value="GOLD" v-model="newCard.cardColor" class="d-none"
@@ -172,7 +172,7 @@
             </div>
           </div>
         </div>
-        <div class="my-1 pb-1 border-bottom border-3 createCard" v-if="isSilver">
+        <div class="my-1 pb-1" v-if="isSilver">
           <div class="row justify-content-between">
             <h3 class="text-center my-lg-auto col-6" :class="{'col-12': switch_benefits}">SILVER</h3>
             <input type="radio" name="silver" id="silver" value="SILVER" v-model="newCard.cardColor" class="d-none"
@@ -180,7 +180,7 @@
             <label for="silver" class="btn btn-grad w-auto px-3 getColor" v-if="!switch_benefits">Make it
               SILVER</label>
           </div>
-          
+
           <div class="accordion accordion-flush  my-5" id="accordionFlushSilver">
             <div class="accordion-item">
               <h2 class="accordion-header" id="flush-headingThree">
@@ -191,9 +191,12 @@
               </h2>
               <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
                 data-bs-parent="#accordionFlushSilver">
-                <p class="m-3 lh-lg fs-6 card-p">Silver Gate Cards are a type of Gate Card framed in Silver. They are the most
-                  basic Gate Cards and only a few of them have text. When looking for these cards it is important not only to
-                  consider putting in a Gate Card that give you a high boost, but also not so great boosts for your opponent.
+                <p class="m-3 lh-lg fs-6 card-p">Silver Gate Cards are a type of Gate Card framed in Silver. They are
+                  the most
+                  basic Gate Cards and only a few of them have text. When looking for these cards it is important not
+                  only to
+                  consider putting in a Gate Card that give you a high boost, but also not so great boosts for your
+                  opponent.
                   Gallery</p>
                 <div class="p-md-3">
                   <ol>
@@ -213,7 +216,7 @@
 
     </section>
     <section class="col-12 col-md-4" :class="{ disabledSection: isCheckable}">
-      <h2 class="text-center my-5">3. Check & Send Request...</h2>
+      <h2 class="text-center my-5" ref="sectionThree">3. Check & Send Request...</h2>
       <div class="my-3 pb-3 border-bottom border-3 createCard">
         <div class="mx-auto col-12 disabledCard ">
           <div class="row card-own">
