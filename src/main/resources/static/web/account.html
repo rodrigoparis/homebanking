@@ -95,12 +95,7 @@
             <div class="col-2 my-auto"> IMPORT </div>
             <div class="d-none d-md-block col-lg-2 my-auto"> BALANCE </div>
           </div>
-          <div v-show="!transactions.length>0">
-            <p class="text-primary text-center fs-2 p-5">Here you'll see all the information of your transactions in
-              your
-              account N°{{accountData.number}}, such as Date, Concept, Destination Account and Receiver and Current
-              balance at that moment</p>
-          </div>
+         
           <div class="accordion-item" v-for="transaction in filteredTransactions">
             <div class="item-2 row">
               <div class="col-3 col-lg-3 py-4 my-auto">{{transaction.date.slice(0,10)}} </div>
@@ -148,7 +143,7 @@
       <div class="col-lg-5">
         <div v-if="!transactions.length>0" class="mt-3">
           <p class="text-primary text-center fs-4 p-5 border border-3 rounded-3 accordion-body">As soon as your account
-            gets any credit or debit transactions you'll be able to check the las 5 movements in this sections within a
+            gets any credit or debit transactions you'll be able to check the last 5 movements in this sections within a
             graphic interface</a></p>
         </div>
         <div class="d-none col-12 d-md-block mt-5 me-5" :class="{'d-md-none' : hasGraphics}">

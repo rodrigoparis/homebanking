@@ -153,24 +153,27 @@
     <section class="col-12 col-md-4" :class="{disabledSection: !enableEnd}">
       <h3 class="text-center my-5">3. Transfer Data...</h3>
       <div class="row ">
-        <p class="fs-4 mt-4"><strong class="newAccount  me-1">Origin Account:</strong>{{newTransfer.origin}}</p>
-        <p class="fs-4"> <strong class="newAccount  me-1">Destination Account:</strong>{{fullDestinationAccount()}}</p>
+        <p class="fs-4 mt-4"><strong class="newAccount me-1">Origin Account:</strong>{{newTransfer.origin}}</p>
+        <p class="fs-4"> <strong class="newAccount me-1">Destination Account:</strong>{{fullDestinationAccount()}}</p>
         <div class="d-column">
-          <p class="fs-4 col-3"> <strong class="newAccount">Amount:</strong></p>
+          <p class="fs-4 col-5"> <strong class="newAccount">Amount </strong> <span class="text-danger fs-6"> *</span>
+          </p>
           <div class="input-group col-8 mb-3 w-50 col-5">
             <span class="input-group-text" id="basic-addon1">$</span>
             <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)"
               v-model="newTransfer.amount" min="1">
           </div>
           <p class="text-danger" v-if="1>newTransfer.amount">Please, be sure to set only positive numbers</p>
-
         </div>
 
         <div class="row">
-          <label for="transferDescription"><strong class="newAccount fs-4 me-1 col-12">Concept: </strong></label>
-          <input type="text" maxlength="20" id="transferDescription" class="form-control w-100 m-2" v-model="newTransfer.description"
-            placeholder="Description">
+          <label for="transferDescription"><strong class="newAccount fs-4 me-1 col-12">Concept </strong> <span
+              class="text-danger">* </span> </label>
+          <input type="text" maxlength="20" id="transferDescription" class="form-control w-100 m-2"
+            v-model="newTransfer.description" placeholder="Description (Max. 20 characters)">
         </div>
+        <p class="text-danger fs-6">* required</p>
+
       </div>
       <div class="col-5 col-lg-5 mx-auto mt-lg-4 justify-content-end" v-show="isReadyToTransfer">
         <button type="button" class="btn btn-grad mx-auto" @click="confirmTransfer">Make Transfer</button>

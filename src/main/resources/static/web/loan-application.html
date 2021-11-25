@@ -100,7 +100,7 @@
       <div class="col-md mt-4">
         <div class="row align-items-center col-12 mx-auto">
           <div class="row align-items-center col-12 mx-auto justify-content-between ">
-            <label for="loanAmount" class="col-12 col-md-8 fw-bold">Which amount would you like to request?</label>
+            <label for="loanAmount" class="col-12 col-md-8 fw-bold">Which amount would you like to request? <span class="text-danger">*</span></label>
             <div class="col-md-3">
               <div class="input-group my-3 ms-auto">
                 <span class="input-group-text" id="basic-addon1">$</span>
@@ -110,7 +110,7 @@
             </div>
             <div class="input-group col-12 my-3">
               <label for="floatingSelectd" class="mx-auto fw-bold">On which account would you like to deposit your
-                loan?</label>
+                loan? <span class="text-danger">*</span></label>
               <select class="form-select ms-md-5" id="floatingSelect" aria-label="Floating label select example"
                 v-model="applyForLoan.accountNumber">
                 <option disabled>Choose your account</option>
@@ -118,13 +118,14 @@
               </select>
             </div>
             <div class="input-group col-12 my-3">
-              <label for="floatingSelectd" class="mx-auto fw-bold ">How many instalments would you like to set?</label>
+              <label for="floatingSelectd" class="mx-auto fw-bold ">How many instalments would you like to set? <span class="text-danger">*</span></label>
               <select class="form-select ms-md-5" id="floatingSelect" aria-label="Floating label select example"
                 v-model="applyForLoan.payments">
-                <option selected disabled>Choose amount of payments</option>
+                <option selected disabled>Choose amount of payments </option>
                 <option v-for="payment in paymentOptions" :value="payment">{{payment}}</option>
               </select>
             </div>
+            <p class="text-danger">* required</p>
           </div>
           <p :class="{disabledSection : !readyToApply}">
             <a href="#applyNow" class="align-self-end btn btn-grad w-25 ms-auto my-5">NEXT</a>
