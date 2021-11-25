@@ -143,7 +143,7 @@
             </div>
           </div>
         </div>
-        <div class="d-flex justify-content-end" @click="deleteWarn">
+        <div class="d-flex justify-content-end" @click="deleteWarn" v-if="clientData.accounts && clientData.accounts.length > 1">
           <p class="text-muted fst-italic font-monospace text-end my-3 p-2 border rounded-3 bg-white toDelete">I want to
             delete this account</p>
         </div>

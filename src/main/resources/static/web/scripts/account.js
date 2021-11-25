@@ -244,12 +244,13 @@ const app = Vue.createApp({
                     console.log(response);
                     swal({
                         title: "DONE!",
-                        text: "DONE",
+                        text: `Your account number ${this.accountData.number} is no long available. Fully deletion upon agent report`,
                         icon: "info",
-                        buttons: ["Ok"],
+                        buttons: "Ok",
                         dangerMode: false,
                     }).then((e) => {
                         if (e) {
+                            console.log("HOLA");
                             window.location.href = "./accounts.html"
                         }
                     })

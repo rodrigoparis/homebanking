@@ -89,7 +89,7 @@ public class AccountController {
         Client client = clientRepository.findByEmail(auth.getName()).orElse(null);
         Account account = accountRepository.findByNumber(accountNumber).orElse(null);
 
-        if (!client.getAccounts().contains(account)){
+        if (!client.getAccounts().contains(account) || !account.getEnabled()){
             response.sendRedirect("/index.html");
             return;
         }
