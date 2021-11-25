@@ -36,13 +36,17 @@ public class TransactionServiceImpl implements TransactionService {
 
         Client client = clientRepository.findByEmail(auth.getName()).orElse(null);
         Account originAccount = accountRepository.findByNumber(originAccountNumber).orElse(null);
-
+        if (!originAccount.getEnabled()){
+            return "Origin Account isn't available";
+        }
         if (!client.getAccounts().contains(originAccount)) {
             return "Origin account is not an account of the authenticated client";
         }
 
         Account destinationAccount = accountRepository.findByNumber(destinationAccountNumber).orElse(null);
-
+        if (!destinationAccount.getEnabled()){
+            return "Destination Account isn't available";
+        }
         if (destinationAccount == null) {
             return "Destination account doesn't exists";
         }

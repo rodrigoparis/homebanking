@@ -1,71 +1,52 @@
 const app = Vue.createApp({
     data() {
         return {
-            errors: [],
-            users: [],
-            json: [],
-            first_name: "",
-            last_name: "",
-            email: ""
+            loanName: "",
+            maxAmount: "",
+            interest: "",
+            payments: "",
+            description: ""
         }
-    },
-    created() {
-        this.loadData();
     },
     methods: {
-        loadData() {
-            axios.get('/rest/clients')
+        logOut() {
+            axios.post('/api/logout')
                 .then(response => {
-                    this.json = response.data;
-                    this.users = response.data._embedded.clients
+                    window.location.href = "./index.html"
                 })
-                .catch(e => {
-                    
+                .catch(error => {
+                    console.log(error);
                 })
         },
-        postClient() { 
-            axios.post('/rest/clients', {
-                "first_name": this.first_name,
-                "last_name": this.last_name,
-                "email": this.email
+
+        onlyNumbersInPayment() {
+            return this.payments.every(element => {
+                return !isNaN(element);
+            });
+        },
+        addLoan() {
+            this.payments = this.payments.split(',')
+            if (!this.onlyNumbersInPayment()) {
+                window.alert("Please, set only numbers in payments separated by a comma")
+                return;
+            }
+            axios.post('/api/loans/createLoan', {
+                "id": 0,
+                "name": this.loanName,
+                "maxAmount": this.maxAmount,
+                "payments": this.payments,
+                "interest": this.interest,
+                "description": this.description
+
             }).then(response => {
-                this.loadData();
+                window.alert(response.data)
             }).catch(e => {
-                ;
+                window.alert(e.response.data)
+
+                console.log(e);
             })
-        },
-        addClient() {
-            this.errors = [];
-            if (!this.first_name) {
-                this.errors.push("First Name");
-            }
-            if (!this.last_name) {
-                this.errors.push('Last Name');
-            }
-            if (!this.email) {
-                this.errors.push('El correo electrónico es obligatorio.');
-            } else if (!this.validEmail(this.email)) {
-                this.errors.push('El correo electrónico debe ser válido.');
-            }
-            if (!this.errors.length) {
-                this.postClient();
-                return true;
-            } else {
-                alertify.alert('Missing Data', `Missing data '${this.errors.toString()}'`);
-            }
-        },
-        validEmail: function (email) {
-            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(email);
-        },
-        deleteClient(client) {
-            if (confirm('Do you really want to delete this Client?')) {
-                axios.delete(client._links.self.href)
-                    .then(response => {
-                        this.loadData();
-                    })                   
-            }
         }
+
     }
 })
 const debug = app.mount("#app")

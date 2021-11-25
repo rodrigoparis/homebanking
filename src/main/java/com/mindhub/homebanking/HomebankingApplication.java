@@ -84,9 +84,13 @@ public class HomebankingApplication {
             accounts.save(account3);
             accounts.save(account4);
 
-            Loan hipoteca = new Loan("Mortgage", 500000D, List.of(12, 24, 36, 48, 60));
-            Loan personal = new Loan("Personal", 100000D, List.of(6, 12, 24));
-            Loan automotriz = new Loan("Auto", 300000D, List.of(6, 12, 24, 36));
+            String mortgageDescription = "A mortgage loan or simply mortgage is a loan used either by purchasers of real property to raise funds to buy real estate, or alternatively by existing property owners to raise funds for any purpose while putting a lien on the property being mortgaged.";
+            String personalDescription = "A personal loan, as opposed to a commercial or business loan, is a loan to an individual for his or her own use. This type of loan is smaller than a mortgage and is typically used to purchase a car, renovate the home or pay for a vacation.";
+            String autoDescription = "A car loan is a sum of money a consumer borrows in order to purchase a car. In most cases when purchasing a car, a borrower will specifically apply for a car loan; however, a consumer can also use a personal loan for the same purpose.";
+
+            Loan hipoteca = new Loan("Mortgage", 500000D, List.of(12, 24, 36, 48, 60),35, mortgageDescription);
+            Loan personal = new Loan("Personal", 100000D, List.of(6, 12, 24),30, personalDescription);
+            Loan automotriz = new Loan("Auto", 300000D, List.of(6, 12, 24, 36),15,autoDescription);
             loans.save(automotriz);
             loans.save(hipoteca);
             loans.save(personal);

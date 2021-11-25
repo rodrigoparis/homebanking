@@ -107,7 +107,7 @@ const app = Vue.createApp({
       axios.post('/api/login', `email=${this.email}&password=${this.password}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
         .then(response => {
           if (this.email == "admin@admin.com") {
-            window.location.href = "../h2-console"
+            window.location.href = "./manager.html"
           } else {
             window.location.href = "./accounts.html";
           }

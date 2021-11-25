@@ -18,66 +18,37 @@
   <div id="app" v-cloak>
     <main class="d-flex justify-content-evenly row">
       <form method="POST" novalidate="true" class="col-12 col-md-3 p-5 mx-auto" id="formulario">
-        <h2>Client Manager</h2>
+        <h2>Loan Creator Manager</h2>
         <div class="my-4">
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="first_name" class="form-control" v-model="first_name">
+          <label for="loanName">Loan name:</label>
+          <input type="text" id="loanName" name="loanName" class="form-control" v-model="loanName">
         </div>
         <div class="my-4">
-          <label for="last_name">Last Name:</label>
-          <input type="text" id="last_name" name="last_name" class="form-control" v-model="last_name">
+          <label for="maxAmount">Max requested Amount</label>
+          <input type="number" id="maxAmount" name="maxAmount" class="form-control" v-model="maxAmount">
         </div>
         <div class="my-4">
-          <label for="mail">Email:</label>
-          <input type="email" id="mail" name="email" class="form-control" v-model="email">
+          <label for="interest">Interest</label>
+          <input type="number" id="interest" name="interest" class="form-control" v-model="interest">
         </div>
-        <button type="button" class="btn btn-primary my-2" value="Send" @click="addClient">Add new Client</button>
+        <div class="my-4">
+          <label for="description">Description (Max. character 250)</label>
+          <textarea maxlength="250" id="description" name="description" class="form-control"
+            v-model="description"></textarea>
+        </div>
+        <div class="my-4">
+          <label for="payments">Payments (separated by comma)</label>
+          <input type="text" id="payments" name="payments" class="form-control" v-model="payments">
+        </div>
+        <button type="button" class="btn btn-primary my-2" value="Send" @click="addLoan">Add new Loan</button>
       </form>
-      <div id="contenedor-tabla" class="d-flex-column col-12 col-md-7 p-5 mx-auto">
-        <table class="table col-12 p-5 " id="tabla">
-          <thead>
-            <tr>
-              <th>First</th>
-              <th>Last</th>
-              <th>Email</th>
-              <th>Accounts</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="client in users">
-              <td >{{client.first_name}}</td>
-              <td >{{client.last_name}}</td>
-              <td >{{client.email}}</td>
-              <td><button type="button" class="btn btn-warning"><a class="nav-link active" aria-current="page"
-                    href="./accounts.html">See accounts</a></button></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="d-grid gap-2 col-6 mx-auto">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">
-            View as JSON
-          </button>
-        </div>
+      <div class="col-12 col-md-3 p-5 mx-auto">
+        <h2>Acces Database</h2>
+        <button type="button" class="btn btn-primary my-2"><a href="../h2-console" class="text-white"> GO TO DATABASE</a></button>
       </div>
-      <!-- Scrollable modal -->
-      <div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle"
-        style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalScrollableTitle">Client REST Response</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <section class="col-12 p-5" id="json">
-                <pre >{{json}}</pre>
-              </section>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
+      <div class="col-12 col-md-3 p-5 mx-auto">
+        <h2>Log out</h2>
+        <button type="button" class="btn btn-primary my-2" @click="logOut">LOGOUT</button>
       </div>
     </main>
 
