@@ -21,6 +21,7 @@ public class ClientLoan {
     private Integer totalPayments;
     private Integer remainingPayments;
     private Double paymentAmount;
+    private Double requestedAmount;
 
     @OneToMany(mappedBy = "clientLoan", fetch = FetchType.EAGER)
     @ToString.Exclude

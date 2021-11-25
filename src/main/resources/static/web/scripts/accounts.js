@@ -62,10 +62,20 @@ const app = Vue.createApp({
                     }
                     this.chart.data = this.pieData
                     this.checkLoan();
+                    setTimeout(() => {
+                        this.spinnerOut();
+                    }, 1000);
                 })
                 .catch(e => {
                     
                 })
+        },
+        spinnerOut(){   
+            document.getElementsByClassName("spinnerContainer")[0].classList.add("d-none")    
+            this.$refs.nav.classList.remove("d-none")
+            this.$refs.main.classList.remove("d-none")
+            this.$refs.footer.classList.remove("d-none")
+            this.$refs.header.classList.remove("d-none")
         },
         currentDate() {
             const current = new Date();

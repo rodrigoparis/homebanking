@@ -37,7 +37,8 @@ public class LoanServiceImpl implements LoanService {
         Double amount = requestedAmount + requestedAmount * 0.2;
         Double payment_amount = amount / payments;
 
-        clientLoan.setAmount(amount);
+        clientLoan.setAmount(Math.round(amount*100.0)/100.0);
+        clientLoan.setRequestedAmount(Math.round(requestedAmount*100.0)/100.0);
         clientLoan.setTotalPayments(payments);
         clientLoan.setLoan(loanRepository.findByName(loanName).orElse(null));
         clientLoan.setClient(client);

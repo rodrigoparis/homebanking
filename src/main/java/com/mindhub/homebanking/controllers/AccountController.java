@@ -3,10 +3,13 @@ package com.mindhub.homebanking.controllers;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.Transaction;
 import com.mindhub.homebanking.repositories.AccountRepository;
+import com.mindhub.homebanking.repositories.TransactionRepository;
 import com.mindhub.homebanking.services.implement.PDFServiceImpl;
 import org.springframework.http.HttpStatus;
 import com.mindhub.homebanking.models.Client;
@@ -32,10 +35,10 @@ public class AccountController {
 
     @Autowired
     private AccountRepository accountRepository;
-
+    @Autowired
+    private TransactionRepository transactionRepository;
     @Autowired
     private AccountServiceImpl accountServiceImpl;
-
     @Autowired
     private PDFServiceImpl pdfService;
 
@@ -50,7 +53,7 @@ public class AccountController {
         Client client = clientRepository.findByEmail(auth.getName()).orElse(null);
         Account account = accountRepository.findById(id).orElse(null);
 
-        if (!client.getAccounts().contains(account)){
+        if (!client.getAccounts().contains(account) || !account.getEnabled()){
             response.sendError(401);
             return null;
         }
@@ -97,6 +100,22 @@ public class AccountController {
         response.setHeader(headerKey, headerValue);
 
         pdfService.generateAccountResume(response,client, account);
+
+    }
+
+    @PostMapping("/account/delete")
+    public ResponseEntity<String> logicAccountDeletion(HttpServletResponse response, Authentication auth, String accountNumber) throws IOException {
+        Client client = clientRepository.findByEmail(auth.getName()).orElse(null);
+        Account account = accountRepository.findByNumber(accountNumber).orElse(null);
+
+        if (!client.getAccounts().contains(account)){
+            return new ResponseEntity<String>("Account doesn't belong to authenticated client",HttpStatus.FORBIDDEN);
+        }
+
+        account.setEnabled(false);
+        accountRepository.save(account);
+
+        return new ResponseEntity<String>("Deletion succeed, please wait confirmation from our agents", HttpStatus.ACCEPTED);
 
 
     }

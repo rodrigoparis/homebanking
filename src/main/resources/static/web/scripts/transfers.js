@@ -13,7 +13,7 @@ const app = Vue.createApp({
                 description: ""
             },
             clientData: [],
-            isNewAccount: true,
+                isNewAccount: true,
             agenda: {},
             option: 0,
             keys: []
@@ -23,6 +23,7 @@ const app = Vue.createApp({
         this.getClientData();
     },
     methods: {
+       
         getClientData() {
             axios.get('/api/clients/current')
                 .then(response => {
@@ -31,13 +32,23 @@ const app = Vue.createApp({
                     this.keys = Object.keys(this.agenda)
                     const values = Object.entries(this.agenda)
                     this.agenda = values
+                    setTimeout(() => {
+                        this.spinnerOut();
+                    }, 1000);
                 })
                 .catch(e => {
-                    
+
                 })
         },
+        spinnerOut(){   
+            document.getElementsByClassName("spinnerContainer")[0].classList.add("d-none")    
+            this.$refs.nav.classList.remove("d-none")
+            this.$refs.main.classList.remove("d-none")
+            this.$refs.footer.classList.remove("d-none")
+            this.$refs.header.classList.remove("d-none")
+        },
         isOriginSelected(e) {
-            
+
             return e == this.newTransfer.origin
         },
         isDestinationSelected(e) {
@@ -142,7 +153,8 @@ const app = Vue.createApp({
                 .catch(error => {
                     console.log(error);
                 })
-        },
+        }
+       
     },
     computed: {
         enableTo() {
@@ -157,6 +169,7 @@ const app = Vue.createApp({
         isReadyToTransfer() {
             return this.newTransfer.origin != "" && this.newTransfer.destination != "" && this.newTransfer.amount > 0 && this.newTransfer.description != ""
         }
+
     }
 })
 const debug = app.mount("#app")

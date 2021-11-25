@@ -16,6 +16,7 @@ public class ClientLoanDTO {
     private Integer payments;
     private Integer remainingPayments;
     private Double paymentAmount;
+    private Double requestedAmount;
 
     public ClientLoanDTO(ClientLoan clientLoan) {
         this.clientLoan_id = clientLoan.getId();
@@ -25,6 +26,7 @@ public class ClientLoanDTO {
         this.payments = clientLoan.getTotalPayments();
         this.remainingPayments = clientLoan.getRemainingPayments();
         this.paymentAmount = clientLoan.getPaymentAmount();
+        this.requestedAmount = clientLoan.getRequestedAmount();
 
     }
 

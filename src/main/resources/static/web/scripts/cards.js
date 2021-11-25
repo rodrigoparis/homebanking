@@ -12,12 +12,22 @@ const app = Vue.createApp({
         this.loadData();
     },
     methods: {
+        spinnerOut(){   
+            document.getElementsByClassName("spinnerContainer")[0].classList.add("d-none")    
+            this.$refs.nav.classList.remove("d-none")
+            this.$refs.main.classList.remove("d-none")
+            this.$refs.footer.classList.remove("d-none")
+            this.$refs.header.classList.remove("d-none")
+        },
         loadData() {
             axios.get('/api/clients/current')
                 .then(response => {
                     this.clientData = response.data
                     this.debitCards = this.clientData.cards.filter(card => card.type == 'DEBIT')
                     this.creditCards = this.clientData.cards.filter(card => card.type == 'CREDIT')
+                    setTimeout(() => {
+                        this.spinnerOut();
+                    }, 1000);
                 })
                 .catch(e => {
                     

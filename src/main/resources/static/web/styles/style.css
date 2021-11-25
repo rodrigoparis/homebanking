@@ -17,6 +17,7 @@ main {
 footer {
     background-color: white;
     min-height: 25vh;
+    margin-top: 8rem !important;
 }
 
 header {
@@ -139,6 +140,18 @@ exit-btn:hover {
     cursor: pointer;
 }
 
+
+.spinnerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+#transfers{
+    height: 100vh!important;
+}
 /*ALERTS*/
 
 .swal-overlay {
@@ -152,6 +165,21 @@ exit-btn:hover {
 .swal-footer {
     display: flex;
     justify-content: center;
+}
+
+.swal-text {
+    text-align: center;
+}
+
+.toDelete {
+    font-size: 0.7rem !important;
+}
+
+.toDelete:hover {
+    background-color: #a8b8fd !important;
+    color: whitesmoke !important;
+    ;
+    cursor: pointer;
 }
 
 /*END ALERTS*/

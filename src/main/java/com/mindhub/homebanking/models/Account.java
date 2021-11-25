@@ -23,6 +23,7 @@ public class Account {
     private String number;
     private LocalDateTime creationDate;
     private Double balance;
+    private Boolean enabled;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
@@ -38,6 +39,7 @@ public class Account {
         this.creationDate = creationDate;
         this.balance = balance;
         this.client = client;
+        this.enabled = true;
     }
 
     @JsonIgnore

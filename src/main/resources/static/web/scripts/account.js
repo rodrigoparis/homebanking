@@ -25,6 +25,13 @@ const app = Vue.createApp({
         this.loadData();
     },
     methods: {
+        spinnerOut() {
+            document.getElementsByClassName("spinnerContainer")[0].classList.add("d-none")
+            this.$refs.nav.classList.remove("d-none")
+            this.$refs.main.classList.remove("d-none")
+            this.$refs.footer.classList.remove("d-none")
+            this.$refs.header.classList.remove("d-none")
+        },
         createGraphic() {
             // var root = am5.Root.new("chartdiv");
             // var chart = root.container.children.push(
@@ -156,7 +163,7 @@ const app = Vue.createApp({
                     this.USD = response.data.EUR_USD
                 })
                 .catch(e => {
-                    
+
                 })
             axios.get(`/api/accounts/${this.currentAccountID}`)
                 .then(response => {
@@ -169,17 +176,20 @@ const app = Vue.createApp({
 
                 })
                 .catch(e => {
-                    
+
                 })
             axios.get(`/api/clients/current`)
                 .then(response => {
                     this.clientData = response.data
                     this.clientData.accounts.forEach(element => {
                         this.savings += element.balance;
+                        setTimeout(() => {
+                            this.spinnerOut();
+                        }, 1000);
                     });
                 })
                 .catch(e => {
-                    
+
                 })
         },
         currentDate() {
@@ -195,10 +205,10 @@ const app = Vue.createApp({
             axios.post('/api/logout')
                 .then(response => {
                 })
-                .catch(error => console.log(error)) 
+                .catch(error => console.log(error))
                 .finally(
                     window.location.href = "./index.html"
-                )               
+                )
         },
         getSummary() {
             axios.post('/api/account/summary', `accountNumber=${this.accountData.number}`, { responseType: 'blob' })
@@ -212,6 +222,38 @@ const app = Vue.createApp({
                     link.remove()
                 })
                 .catch(error => console.log(error))
+        },
+        deleteWarn() {
+            swal({
+                title: "WARNING INFORMATION",
+                text: "If you agree you will no longer see your account information. The final deletion of transactions and account is subject to review by our financial agents.",
+                icon: "info",
+                buttons: ["Decline", "Accept"],
+                dangerMode: true,
+            }).then((e) => {
+                if (e) {
+                    console.log("A BORRAR CUENTA")
+                    this.deleteAccount()
+                }
+            })
+        },
+        deleteAccount() {
+            console.log("yendo a back");
+            axios.post('/api/account/delete', `accountNumber=${this.accountData.number}`)
+                .then(response => {
+                    console.log(response);
+                    swal({
+                        title: "DONE!",
+                        text: "DONE",
+                        icon: "info",
+                        buttons: ["Ok"],
+                        dangerMode: false,
+                    }).then((e) => {
+                        if (e) {
+                            window.location.href = "./accounts.html"
+                        }
+                    })
+                }).catch(error => console.log(error))
         }
 
     },

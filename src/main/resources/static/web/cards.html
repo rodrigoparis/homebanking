@@ -17,9 +17,11 @@
 </head>
 
 <body>
+  <div class="spinnerContainer">
+    <img src="./assets/loader.gif">
+  </div>
   <div class="d-flex flex-column h-100" id="app" v-cloak>
-    <!-- Menú para futuras funcionalides del proyecto -->
-    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top d-none" ref="nav">
       <div class="container-fluid" id="sticky-nav">
         <a class="navbar-brand" href="#" id="title"><strong class="font-monospace">MHOME</strong>BANKING</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
@@ -50,7 +52,7 @@
       </div>
     </nav>
 
-    <header class="d-flex bd-highlight mb-3 row justify-content-between" id="header">
+    <header class="d-flex bd-highlight mb-3 row justify-content-between d-none" ref="header" id="header">
       <div class="row col-12 mt-3 py-md-4 px-md-5 bd-highlight">
         <img src="./assets/profile-pic.jpg" alt=""
           class=" col-lg-5 profile-pic rounded-circle mx-auto mt-5 my-lg-auto mx-lg-5">
@@ -59,7 +61,7 @@
           your credit and debit cards information available.</p>
       </div>
     </header>
-    <main class="row cards-body m-4">
+    <main class="row cards-body m-4 d-none" ref="main">
       <section class="row col-12 justify-content-center" v-if="creditCards.length>0">
         <p class="text-center m-5 fs-2 fw-bold">My MHBrothers Credit Cards</p>
         <div class=" justify-content-center col-12 col-md-3" v-for="card in creditCards">
@@ -375,16 +377,16 @@
 
 
     <footer
-      class="d-flex flex-wrap justify-content-center justify-content-md-between align-items-center py-3 my-4 footer mt-auto border-top">
+      class="d-flex flex-wrap justify-content-center justify-content-md-between align-items-center py-3  footerborder-top d-none"
+      ref="footer">
       <p class="col-md-4 mb-0 text-muted ms-4">&copy; 2021 MindHub, Inc</p>
       <a class="navbar-brand" href="#" id="title"><strong class="font-monospace">MHOME</strong>BANKING</a>
       <ul class="col-12 nav col-md-5 justify-content-center justify-content-md-end me-4">
-        <li class="nav-item"><a href="./index.html" class="nav-link px-2 text-muted">Home</a></li>
         <li class="nav-item"><a href="./accounts.html" class="nav-link px-2 text-muted">My Accounts</a></li>
         <li class="nav-item"><a href="./cards.html" class="nav-link px-2 text-muted">My Cards</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown"
-            aria-expanded="false"></a>
+          <a class="nav-link px-2 text-muted dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown"
+            aria-expanded="false">More</a>
           <ul class="dropdown-menu" aria-labelledby="dropdown04">
             <li><a class="dropdown-item" href="./loan-application.html">Apply for Loans</a></li>
             <li><a class="dropdown-item" href="./create-cards.html">Apply for Cards</a></li>

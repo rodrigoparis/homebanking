@@ -30,6 +30,7 @@ public class AccountServiceImpl implements AccountService {
         account.setClient(client);
         account.setBalance(0D);
         account.setCreationDate(LocalDateTime.now());
+        account.setEnabled(true);
 
         Integer accountCode = account.hashCode();
         Integer clientCode = client.hashCode();
@@ -53,7 +54,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Set<AccountDTO> getAccounts() {
-        return accountRepository.findAll().stream().map(AccountDTO::new).collect(Collectors.toSet());
+        return accountRepository.findAll().stream().filter(Account::getEnabled).map(AccountDTO::new).collect(Collectors.toSet());
+        //return accountRepository.findAll().stream().map(AccountDTO::new).collect(Collectors.toSet());
     }
 
     @Override
