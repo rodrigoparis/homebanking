@@ -62,6 +62,7 @@ public class LoanController {
         }
 
         Loan loan = loanRepository.findByName(loanName).orElse(null);
+        Integer interest = loan.getInterest();
         if (loan == null) {
             return new ResponseEntity<>("Not valid loan", HttpStatus.FORBIDDEN);
         }
@@ -85,19 +86,19 @@ public class LoanController {
             return new ResponseEntity<>("Destination account must belong to authenticated client", HttpStatus.FORBIDDEN);
         }
 
-        loanServiceImpl.createLoan(requestedAmount, payments, loanName, client, account);
+        loanServiceImpl.createLoan(requestedAmount, payments, loanName, client, account,interest);
 
         return new ResponseEntity<>("Accepted Loan", HttpStatus.CREATED);
 
     }
 
-    @GetMapping("/loans") //Devuelve los prestamos disponibles
+    @GetMapping("/loans")
     public List<LoanDTO> getAvailableLoans() {
         return loanServiceImpl.getLoans();
     }
 
     @Transactional
-    @PostMapping("/loans/payOut") //Devuelve los prestamos disponibles
+    @PostMapping("/loans/payOut")
     public ResponseEntity<String> payOut(Authentication auth, String accountNumber, Long clientLoanID, Integer quantity) {
         Client client = clientRepository.findByEmail(auth.getName()).orElse(null);
 
@@ -119,5 +120,19 @@ public class LoanController {
 
     }
 
+    @PostMapping("/loans/createLoan")
+    public ResponseEntity<String> addLoan(Authentication auth, @RequestBody LoanDTO newLoan){
 
+        if (auth.getAuthorities().contains("ADMIN")){
+            return new ResponseEntity<String>("No authorization", HttpStatus.UNAUTHORIZED);
+        }
+
+        if (loanRepository.findByName(newLoan.getName()).orElse(null) !=null){
+            return new ResponseEntity<String>("Loan already exists, change name", HttpStatus.FORBIDDEN);
+        }
+
+
+        loanServiceImpl.addLoan(newLoan);
+        return new ResponseEntity<String>("Loan created", HttpStatus.OK);
+    }
 }

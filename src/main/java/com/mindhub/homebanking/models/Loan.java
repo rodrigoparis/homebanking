@@ -26,6 +26,8 @@ public class Loan {
     private Long id;
     private String name;
     private Double maxAmount;
+    private int interest;
+    private String description;
 
     @ElementCollection
     @Column(name = "payments_options")
@@ -35,10 +37,12 @@ public class Loan {
     private Set<ClientLoan> clientLoans = new HashSet();
 
 
-    public Loan(String name, Double maxAmount, List<Integer> payments) {
+    public Loan(String name, Double maxAmount, List<Integer> payments, int interest, String description) {
         this.name = name;
         this.maxAmount = maxAmount;
         this.payments = payments;
+        this.interest = interest;
+        this.description = description;
     }
 
     public void addClientLoan(ClientLoan clientLoan) {

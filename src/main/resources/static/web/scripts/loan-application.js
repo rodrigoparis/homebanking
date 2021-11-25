@@ -5,9 +5,11 @@ const app = Vue.createApp({
                 name: "",
                 amount: 0,
                 payments: 0,
-                accountNumber: ""
+                accountNumber: ""                
             },
+            loanDescription:"",
             maxAmount: 0,
+            interest: 0,
             installmentPayment: 0,
             clientData: [],
             availableLoans: [],
@@ -42,6 +44,8 @@ const app = Vue.createApp({
             let selection = this.availableLoans.find(loan => loan.name == e)
             this.paymentOptions = this.availableLoans.find(loan => loan.name == e).payments
             this.maxAmount = selection.maxAmount
+            this.loanDescription = selection.description
+            this.interest= selection.interest
         },
         isLoanSelected(e) {
             return e == this.applyForLoan.name

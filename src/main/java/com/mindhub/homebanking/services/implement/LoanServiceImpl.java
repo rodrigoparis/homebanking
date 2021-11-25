@@ -32,9 +32,9 @@ public class LoanServiceImpl implements LoanService {
     PayOutRepository payOutRepository;
 
     @Override
-    public void createLoan(Double requestedAmount, Integer payments, String loanName, Client client, Account account) {
+    public void createLoan(Double requestedAmount, Integer payments, String loanName, Client client, Account account, Integer interest) {
         ClientLoan clientLoan = new ClientLoan();
-        Double amount = requestedAmount + requestedAmount * 0.2;
+        Double amount = requestedAmount + (requestedAmount * interest/100);
         Double payment_amount = amount / payments;
 
         clientLoan.setAmount(Math.round(amount*100.0)/100.0);
@@ -70,6 +70,18 @@ public class LoanServiceImpl implements LoanService {
         account.setBalance(account.getBalance() + requestedAmount);
         accountRepository.save(account);
         transactionRepository.save(transaction);
+    }
+
+    @Override
+    public void addLoan(LoanDTO newLoan) {
+        Loan loan = new Loan();
+        loan.setName(newLoan.getName());
+        loan.setInterest(newLoan.getInterest());
+        loan.setMaxAmount(newLoan.getMaxAmount());
+        loan.setPayments(newLoan.getPayments());
+        loan.setDescription(newLoan.getDescription());
+        loanRepository.save(loan);
+
     }
 
     public List<LoanDTO> getLoans() {

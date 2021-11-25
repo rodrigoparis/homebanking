@@ -25,11 +25,15 @@ public class LoanDTO {
     private String name;
     private Double maxAmount;
     private List<Integer> payments = new ArrayList<>();
+    private int interest;
+    private String description;
 
     public LoanDTO(Loan loan){
         this.id = loan.getId();
         this.name = loan.getName();
         this.maxAmount = loan.getMaxAmount();
         this.payments = loan.getPayments();
+        this.interest = loan.getInterest();
+        this.description = loan.getDescription();
     }
 }
