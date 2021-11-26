@@ -70,7 +70,7 @@ const app = Vue.createApp({
             }).then((willTransfer) => {
                 if (willTransfer) {
                     var img = document.createElement("img")
-                    img.src = "./assets/loader-blu.gif";
+                    img.src = "./assets/loader.gif";
                     swal("We are processing your request", {
                         content: img,
                         buttons: false

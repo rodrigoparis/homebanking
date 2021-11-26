@@ -162,15 +162,12 @@ public class PDFServiceImpl implements PDFService {
         document.add(dataTable);
         Table footer = new Table(1).useAllAvailableWidth();
 
-        Cell cell = new Cell().add(new Paragraph("This is a test doc"));
-        cell.setBackgroundColor(ColorConstants.ORANGE);
+
+        Cell cell = new Cell().add(new Paragraph("MindHub Brothers | Homebanking ").setTextAlignment(TextAlignment.CENTER));
         footer.addCell(cell);
 
-        cell = new Cell().add(new Paragraph("MH | Brothers "));
-        cell.setBackgroundColor(ColorConstants.LIGHT_GRAY);
+        cell = new Cell().add(new Paragraph(LocalDateTime.now().format(ISO_LOCAL_DATE)).setTextAlignment(TextAlignment.RIGHT));
         footer.addCell(cell);
-
-
         pdfDocument.addEventHandler(PdfDocumentEvent.END_PAGE, new TableFooterEventHandler(footer));
         document.close();
     }

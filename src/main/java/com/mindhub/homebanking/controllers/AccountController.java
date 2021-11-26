@@ -53,7 +53,7 @@ public class AccountController {
         Client client = clientRepository.findByEmail(auth.getName()).orElse(null);
         Account account = accountRepository.findById(id).orElse(null);
 
-        if (!client.getAccounts().contains(account) || !account.getEnabled()){
+        if (!client.getAccounts().contains(account) || !account.getEnabled()) {
             response.sendError(401);
             return null;
         }
@@ -89,17 +89,17 @@ public class AccountController {
         Client client = clientRepository.findByEmail(auth.getName()).orElse(null);
         Account account = accountRepository.findByNumber(accountNumber).orElse(null);
 
-        if (!client.getAccounts().contains(account) || !account.getEnabled()){
+        if (!client.getAccounts().contains(account) || !account.getEnabled()) {
             response.sendRedirect("/index.html");
             return;
         }
         response.setContentType("application/pdf");
         String date = LocalDateTime.now().format(ISO_LOCAL_DATE);
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=" + accountNumber + "-summary-" + date + ".pdf";
+        String headerValue = "attachment; filename=" + "AC-SUMMARY-" + accountNumber + client.getLast_name().toUpperCase() + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        pdfService.generateAccountResume(response,client, account);
+        pdfService.generateAccountResume(response, client, account);
 
     }
 
@@ -108,8 +108,8 @@ public class AccountController {
         Client client = clientRepository.findByEmail(auth.getName()).orElse(null);
         Account account = accountRepository.findByNumber(accountNumber).orElse(null);
 
-        if (!client.getAccounts().contains(account)){
-            return new ResponseEntity<String>("Account doesn't belong to authenticated client",HttpStatus.FORBIDDEN);
+        if (!client.getAccounts().contains(account)) {
+            return new ResponseEntity<String>("Account doesn't belong to authenticated client", HttpStatus.FORBIDDEN);
         }
 
         account.setEnabled(false);
