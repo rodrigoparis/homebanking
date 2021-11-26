@@ -20,4 +20,6 @@ Principales funcionalidades:⁣
 7) Tablas gráficas para mostrar el historial de ahorros y transacciones.⁣
 ⁣
 💾 𝐔𝐌𝐋 𝐃𝐈𝐀𝐆𝐑𝐀𝐌 ⁣
-[https://github.com/rodrigoparis/homebanking/blob/master/UML.png]
+
+![UML DIAGRAM]
+(https://github.com/rodrigoparis/homebanking/blob/master/UML.png)
