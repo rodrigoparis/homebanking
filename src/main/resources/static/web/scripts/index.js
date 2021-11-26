@@ -67,7 +67,9 @@ const app = Vue.createApp({
           content: img,
           buttons: false
         })
-        this.createClient()
+        setTimeout(() => {
+          this.createClient()
+        }, 1500);
       }
     },
     createClient() {

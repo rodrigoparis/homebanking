@@ -74,13 +74,13 @@
 
       <section class="col-12 col-lg-6 ms-lg-5">
         <div class="row justify-content-between my-3 my-lg-0" v-if="transactions.length>0">
-          <form class="col-12 col-lg-6 my-auto py-lg-3">
+          <form class="col-12 col-lg-6 my-3 my-md-auto py-lg-3">
             <label for="busqueda" class="visually-hidden"></label>
             <input type="text" class="form-control" id="busqueda" placeholder="Search" v-model="search">
           </form>
-          <div class="row col- col-lg-6 py-lg-3 justify-content-end">
-            <a class="btn btn-grad w-auto my-auto px-3" value="Send" href="./transfers.html">New Transfer</a>
-            <a class="btn btn-grad w-auto my-auto px-3" value="Send" @click="getSummary">Get summary</a>
+          <div class="row col- col-lg-6 py-lg-3 justify-content-evenly">
+            <a class="btn btn-grad w-auto my-2 my-md-auto px-3" value="Send" href="./transfers.html">New Transfer</a>
+            <a class="btn btn-grad w-auto my-2 my-md-auto px-3" value="Send" @click="getSummary">Get summary</a>
 
           </div>
         </div>
@@ -175,7 +175,7 @@
     </main>
 
     <footer
-      class="d-flex flex-wrap justify-content-center justify-content-md-between align-items-center py-3  footerborder-top d-none"
+      class="d-flex flex-wrap justify-content-center justify-content-md-between align-items-center py-3  footer border-top d-none"
       ref="footer">
       <p class="col-md-4 mb-0 text-muted ms-4">&copy; 2021 MindHub, Inc</p>
       <a class="navbar-brand" href="#" id="title"><strong class="font-monospace">MHOME</strong>BANKING</a>

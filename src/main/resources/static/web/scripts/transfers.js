@@ -92,7 +92,7 @@ const app = Vue.createApp({
                         swal("Done!", {
                             title: "Your transfer has been made succesfully!",
                             text: "Would you like to add this account to your agenda?",
-                            buttons: true,
+                            buttons: ["No","Yes"],
                             icon: "success"
                         }).then((e) => {
                             if (e) {
@@ -129,7 +129,7 @@ const app = Vue.createApp({
                 .then(response => {
                     swal("Done!", {
                         title: "Account added to your agenda!",
-                        buttons: "Great!",
+                        buttons: "Go to my accounts",
                         icon: "success"
                     })
                         .then(e => [
