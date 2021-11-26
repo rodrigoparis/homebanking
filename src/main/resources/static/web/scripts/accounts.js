@@ -64,7 +64,7 @@ const app = Vue.createApp({
                     this.checkLoan();
                     setTimeout(() => {
                         this.spinnerOut();
-                    }, 1000);
+                    }, 3500);
                 })
                 .catch(e => {
                     

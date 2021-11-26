@@ -60,23 +60,24 @@ const app = Vue.createApp({
         return
       } else {
         this.validMail = true
+        var img = document.createElement("img")
+        img.src = "./assets/email.gif";
+        swal({
+          title: "We are checking your information to validate your account, this could take a moment",
+          content: img,
+          buttons: false
+        })
+        this.createClient()
       }
-      swal({
-        title: "We will send you an email to validate your account",
-        text: "This could take a few seconds!",
-        icon: "info",
-        buttons: ["Got it!"],
-        dangerMode: false,
-      })
-      this.createClient()
     },
     createClient() {
       axios.post('/api/clients', `first_name=${this.su_first_name}&last_name=${this.su_last_name}&email=${this.su_email}&password=${this.su_password}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
         .then(response => {
           this.email = this.su_email
           this.password = this.su_password
-          swal("Done!", {
-            title: "Please, check your email and click on the link to enable your account",
+          swal({
+            title:"Done!",
+            text: "Please, check your email and click on the link to enable your account",
             buttons: "Got it!",
             icon: "success"
           }).then((value) => {
@@ -89,6 +90,12 @@ const app = Vue.createApp({
           if (error.response.status == 403) {
             if (error.response.data == "Email already in use")
               this.inUseMail = true
+              swal({
+                title: "Mmm...",
+                text: "It seems that you already have an account with us...",
+                buttons: "Got it!",
+                icon: "info"
+              })
           }
 
         })
@@ -111,7 +118,7 @@ const app = Vue.createApp({
           } else {
             window.location.href = "./accounts.html";
           }
-          
+
         })
         .catch(error => {
           if (error.response.status == 404) {

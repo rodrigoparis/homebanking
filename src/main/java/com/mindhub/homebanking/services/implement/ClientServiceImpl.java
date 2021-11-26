@@ -60,7 +60,7 @@ public class ClientServiceImpl implements UserDetailsService, ClientService {
         confirmationTokenServiceImpl.saveConfirmationToken(confirmationToken);
 
         String link = "https://mh-homebanking.herokuapp.com/api/clients/confirm?token=" + token;
-        String email = emailServiceImpl.createEmail(request.getName(), link);
+        String email = emailServiceImpl.createEmail(request.getName(),request.getLast_name(), link);
         emailServiceImpl.send(request.getEmail(), email);
 
         return true;

@@ -13,7 +13,7 @@ const app = Vue.createApp({
                 description: ""
             },
             clientData: [],
-                isNewAccount: true,
+            isNewAccount: true,
             agenda: {},
             option: 0,
             keys: []
@@ -23,7 +23,7 @@ const app = Vue.createApp({
         this.getClientData();
     },
     methods: {
-       
+
         getClientData() {
             axios.get('/api/clients/current')
                 .then(response => {
@@ -40,8 +40,8 @@ const app = Vue.createApp({
 
                 })
         },
-        spinnerOut(){   
-            document.getElementsByClassName("spinnerContainer")[0].classList.add("d-none")    
+        spinnerOut() {
+            document.getElementsByClassName("spinnerContainer")[0].classList.add("d-none")
             this.$refs.nav.classList.remove("d-none")
             this.$refs.main.classList.remove("d-none")
             this.$refs.footer.classList.remove("d-none")
@@ -69,14 +69,21 @@ const app = Vue.createApp({
                 buttons: true,
             }).then((willTransfer) => {
                 if (willTransfer) {
-                    this.createNewTransfer()
+                    var img = document.createElement("img")
+                    img.src = "./assets/loader-blu.gif";
                     swal("We are processing your request", {
-                        icon: "success",
+                        content: img,
+                        buttons: false
                     });
+                    setTimeout(() => {
+                        this.createNewTransfer()
+                    }, 1500);
                 } else {
                     swal("Trasnfer cancelled!");
                 }
-            });
+            }).finally(
+
+            );
         },
         createNewTransfer() {
             axios.post('/api/transactions', `originAccount=${this.newTransfer.origin}&destinationAccount=${this.fullDestinationAccount()}&amount=${this.newTransfer.amount}&description=${this.newTransfer.description}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
@@ -95,7 +102,7 @@ const app = Vue.createApp({
                     } else {
                         swal("Done!", {
                             title: "Your transfer has been made succesfully!",
-                            buttons: ["Take me to my accounts"],
+                            buttons: "Take me to my accounts",
                             icon: "success"
                         }).then(e => {
                             window.location.href = "./accounts.html"
@@ -154,7 +161,7 @@ const app = Vue.createApp({
                     console.log(error);
                 })
         }
-       
+
     },
     computed: {
         enableTo() {
