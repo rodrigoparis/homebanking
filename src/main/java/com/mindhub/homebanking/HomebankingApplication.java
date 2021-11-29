@@ -53,7 +53,6 @@ public class HomebankingApplication {
                                       CardRepository cards) {
         return (args) -> {
 
-//prueba
             Client admin = new Client("admin", "admin", "admin@admin.com", passwordEncoder.encode("admin"), UserRol.ADMIN);
             admin.setIsEnabled(true);
             clients.save(admin);

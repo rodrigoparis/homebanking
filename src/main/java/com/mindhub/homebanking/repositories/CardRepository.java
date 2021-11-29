@@ -13,5 +13,6 @@ import java.util.Optional;
 public interface CardRepository extends JpaRepository<Card, Long> {
 
     List<Card> findByType(CardType type);
+    Optional<Card> findByNumber(String number);
 
 }

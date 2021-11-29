@@ -18,7 +18,7 @@
 
 <body class="d-flex flex-column h-100 justify-content-between" id="app" v-cloak>
 
-          <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+  <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
 
     <div class="container-fluid" id="sticky-nav">
       <a class="navbar-brand" href="#" id="title"><strong class="font-monospace">MHOME</strong>BANKING</a>
@@ -61,10 +61,8 @@
   </header>
 
   <main class="row cards-body m-5 p-5">
-    <section class="col-12 col-md-4">
+    <section class="col-12 col-md-4  mt-5 pt-5">
       <h4 class="text-center my-5" ref="sectionOne">1. Choose your card type...</h4>
-      <p class="text-end switch" v-show="switch_type" @click="switchTypeFx"> <i class="fas fa-arrow-left"></i>
-        Switch type </p>
       <div class="row m-5 p-5 border-end border-3">
         <div class="mt-2 pt-2 pb-5 border-bottom border-3 createCard" v-show="isDebit">
           <h5 class="text-center">DEBIT</h5>
@@ -72,9 +70,7 @@
               card that is directly connected to your checking account. </strong>A debit card can also be used to get
             cash and make
             other ATM transactions. </p>
-          <input type="radio" name="debit" id="debit" value="DEBIT" v-model="newCard.cardType" class="d-none"
-            @click="selectType">
-          <label for="debit" class="btn btn-grad mx-auto my-5">Get DEBIT</label>
+          <a for="debit" class="btn btn-grad mx-auto my-5" @click="selectType('DEBIT')" href="#benefits">Get DEBIT</a>
         </div>
         <div class="my-3 pb-3 border-bottom border-3 createCard" v-show="isCredit">
           <h5 class="text-center">CREDIT</h5>
@@ -82,25 +78,22 @@
             enable the cardholder <strong>to pay a merchant for
               goods and services based on the cardholder's accrued debt</strong>
           </p>
-          <input type="radio" name="credit" id="credit" value="CREDIT" v-model="newCard.cardType" class="d-none"
-            @click="selectType">
-          <label for="credit" class="btn btn-grad mx-auto my-5">Get CREDIT</label>
+          <a for="debit" class="btn btn-grad mx-auto my-5" @click="selectType('CREDIT')" href="#benefits">Get CREDIT</a>
         </div>
       </div>
+      <p class="text-end switch" v-show="switch_type" @click="switchTypeFx"> <i class="fas fa-arrow-left"></i>
+        Switch type </p>
     </section>
-    <section class="col-12 col-md-4" :class="{ disabledSection: isDisabled }">
+    <section class="col-12 col-md-4 mt-5 pt-5" :class="{ disabledSection: isDisabled }" id="benefits">
       <!--disabledSection -->
       <h4 class="text-center my-5" ref="sectionTwo">2. Choose your benefits...</h4>
-      <p class="text-end switch" v-if="switch_benefits" @click="switchBenefitsFx"> <i class="fas fa-arrow-left"></i>
-        Switch benefits </p>
       <div class="row m-5 p-5 border-end border-3">
         <div class="my-1 pb-1" v-if="isTitanium">
           <div class="row justify-content-between">
-            <h5 class="text-center my-lg-auto col-6" :class="{'col-12': switch_benefits}">TITANIUM</h5>
-            <input type="radio" name="titanium" id="titanium" value="TITANIUM" v-model="newCard.cardColor"
-              class="d-none" @click="selectBenefits">
-            <label for="titanium" class="btn btn-grad w-auto px-3 getColor" v-if="!switch_benefits">Make it
-              TITANIUM</label>
+            <h5 class="text-center my-lg-auto col-5" :class="{'col-12': switch_benefits}">TITANIUM</h5>
+            <a for="titanium" class="btn btn-grad w-auto px-3 getColor" v-if="!switch_benefits"
+              @click="selectBenefits('TITANIUM')" href="#end">Make it
+              TITANIUM</a>
           </div>
           <div class="accordion accordion-flush my-5" id="accordionFlushTitanium">
             <div class="accordion-item">
@@ -137,10 +130,9 @@
         <div class="my-1 pb-1" v-if="isGold">
           <div class="row justify-content-between">
             <h5 class="text-center my-lg-auto col-6" :class="{'col-12': switch_benefits}">GOLD</h5>
-            <input type="radio" name="gold" id="gold" value="GOLD" v-model="newCard.cardColor" class="d-none"
-              @click="selectBenefits">
-            <label for="gold" class="btn btn-grad w-auto px-3 getColor" v-if="!switch_benefits">Make it GOLD</label>
-
+            <a for="titanium" class="btn btn-grad w-auto px-3 getColor" v-if="!switch_benefits"
+              @click="selectBenefits('GOLD')" href="#end">Make it
+              GOLD</a>
           </div>
           <div class="accordion accordion-flush my-5" id="accordionFlushGold">
             <div class="accordion-item">
@@ -177,12 +169,10 @@
         <div class="my-1 pb-1" v-if="isSilver">
           <div class="row justify-content-between">
             <h5 class="text-center my-lg-auto col-6" :class="{'col-12': switch_benefits}">SILVER</h5>
-            <input type="radio" name="silver" id="silver" value="SILVER" v-model="newCard.cardColor" class="d-none"
-              @click="selectBenefits">
-            <label for="silver" class="btn btn-grad w-auto px-3 getColor" v-if="!switch_benefits">Make it
-              SILVER</label>
+            <a for="titanium" class="btn btn-grad w-auto px-3 getColor" v-if="!switch_benefits"
+            @click="selectBenefits('SILVER')" href="#end">Make it
+            SILVER</a>
           </div>
-
           <div class="accordion accordion-flush  my-5" id="accordionFlushSilver">
             <div class="accordion-item">
               <h2 class="accordion-header" id="flush-headingThree">
@@ -212,9 +202,14 @@
             </div>
           </div>
         </div>
+       
       </div>
+      <p class="text-end switch" v-if="switch_benefits" @click="switchBenefitsFx"> <i class="fas fa-arrow-left" ></i>
+        Switch benefits </p>
     </section>
-    <section class="col-12 col-md-4" :class="{ disabledSection: isCheckable}">
+    
+    <section class="col-12 col-md-4  mt-5 pt-5" :class="{ disabledSection: isCheckable}" id="end" >
+      
       <h4 class="text-center my-5" ref="sectionThree">3. Check & Send Request...</h4>
       <div class="my-3 pb-3 border-bottom border-3 createCard">
         <div class="mx-auto col-12 disabledCard ">
@@ -260,6 +255,8 @@
             Request!</button>
         </div>
       </div>
+      <a class=" switch text-decoration-none text-black text-end col-12" v-if="switch_benefits" @click="switchBenefitsFx" href="#benefits"> <i class="fas fa-arrow-left" ></i>
+        Switch benefits </a>
     </section>
   </main>
 

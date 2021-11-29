@@ -84,17 +84,19 @@ const app = Vue.createApp({
                 })
         },
         selectType(e) {
-            if (window.innerWidth <= 700) {
-                this.$refs.sectionTwo.scrollIntoView({ block: "end", behavior: "smooth" })
-            }
+            // if (window.innerWidth <= 700) {
+            //     this.$refs.sectionTwo.scrollIntoView({ block: "end", behavior: "smooth" })
+            // }
+            this.newCard.cardType = e
 
             this.switch_type = true;
-            if (e.target.value == "DEBIT") {
+            if (e == "DEBIT") {
                 this.isCredit = false;
                 this.isDebit = true;
             } else {
                 this.isCredit = true;
                 this.isDebit = false;
+
             }
             this.isDisabled = false;
 
@@ -110,15 +112,16 @@ const app = Vue.createApp({
             this.isCheckable = true;
         },
         selectBenefits(e) {
-            if (window.innerWidth <= 700) {
-                this.$refs.sectionThree.scrollIntoView({ block: "end", behavior: "smooth" })
-            }
+            // if (window.innerWidth <= 700) {
+            //     this.$refs.sectionThree.scrollIntoView({ block: "end", behavior: "smooth" })
+            // }
+            this.newCard.cardColor = e
             this.switch_benefits = true;
-            if (e.target.value == "TITANIUM") {
+            if (e == "TITANIUM") {
                 this.isTitanium = true;
                 this.isGold = false;
                 this.isSilver = false;
-            } else if (e.target.value == "GOLD") {
+            } else if (e == "GOLD") {
                 this.isGold = true;
                 this.isTitanium = false;
                 this.isSilver = false;

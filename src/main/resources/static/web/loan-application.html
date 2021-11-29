@@ -60,14 +60,13 @@
   </header>
 
   <main class="row cards-body m-5 p-5">
-    <section class="col-12 col-md-6 border-end border-3">
+    <section class="col-12 col-md-6 border-end border-3 mt-5">
       <h3 class="text-center my-5">1. Choose the Loan that suits you best...</h3>
       <div class="row  justify-content-center">
-        <label class="account col-6 col-md-3 border justify-content-center" :class="{selected : isLoanSelected(loan.name)}"
-          :for="loan.name" v-for="loan in availableLoans">
-          <h4 class="text-center mt-1 p-1">{{loan.name}}</h4>
-          <input type="radio" :id="loan.name" :value="loan.name" v-model="applyForLoan.name" class="d-none"
-            @click="selectedLoan(loan.name)">
+        <label class="account col-6 col-md-3 border justify-content-center"
+          :class="{selected : isLoanSelected(loan.name)}" :for="loan.name" v-for="loan in availableLoans">
+          <h4 class="text-center mt-1 p-1"><a href="#next" class="text-decoration-none" @click="selectedLoan(loan.name)"
+              :value="loan.name" v-model="applyForLoan.name">{{loan.name}}</a></h4>
         </label>
 
       </div>
@@ -81,7 +80,7 @@
 
     </section>
 
-    <section class="col-12 col-md-6" :class="{disabledSection : unavailableSection}">
+    <section class="col-12 col-md-6 mt-5 pt-5 " :class="{disabledSection : unavailableSection}" id="next">
       <h3 class="text-center my-5">2. Some more information...</h3>
       <div class="col-md mt-4">
         <div class="row align-items-center col-12 mx-auto">

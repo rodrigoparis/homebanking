@@ -149,9 +149,10 @@ exit-btn:hover {
     height: 100vh;
 }
 
-#transfers{
-    height: 100vh!important;
+#transfers {
+    height: 100vh !important;
 }
+
 /*ALERTS*/
 
 .swal-overlay {
@@ -175,10 +176,15 @@ exit-btn:hover {
     font-size: 0.7rem !important;
 }
 
+.deleteCardX {
+    margin-top: -.5rem;
+
+}
+
 .toDelete:hover {
-    background-color: #a8b8fd !important;
-    color: whitesmoke !important;
-    ;
+    background-color: #696a6d94 !important;
+    color: rgb(248, 206, 206) !important;
+    border-radius: 10px;
     cursor: pointer;
 }
 

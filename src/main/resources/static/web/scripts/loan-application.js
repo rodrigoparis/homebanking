@@ -46,6 +46,7 @@ const app = Vue.createApp({
             this.maxAmount = selection.maxAmount
             this.loanDescription = selection.description
             this.interest= selection.interest
+            this.applyForLoan.name = e
         },
         isLoanSelected(e) {
             return e == this.applyForLoan.name

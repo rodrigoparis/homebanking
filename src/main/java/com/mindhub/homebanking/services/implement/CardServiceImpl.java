@@ -42,6 +42,7 @@ public class CardServiceImpl implements CardService {
         card.setThruDate(LocalDateTime.now().plusYears(5));
         card.setCvv(cvv);
         card.setNumber(cardNumber);
+        card.setEnabled(true);
 
         cardRepository.save(card);
 
@@ -68,8 +69,9 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public boolean deleteCard(Authentication auth) {
-        //TODO
+    public boolean deleteCard(Card card) {
+        card.setEnabled(false);
+        cardRepository.save(card);
         return true;
     }
 }

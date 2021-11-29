@@ -12,6 +12,37 @@ const app = Vue.createApp({
         this.loadData();
     },
     methods: {
+        deleteWarn(cardNumber) {
+            swal({
+                title: "WARNING INFORMATION",
+                text: `If you agree you wont be able to see your card N° ${cardNumber} anymore. The final deletion is subject to review by our financial agents.`,
+                icon: "info",
+                buttons: ["Decline", "Accept"],
+                dangerMode: true,
+            }).then((e) => {
+                if (e) {
+                    console.log("A BORRAR CUENTA")
+                    this.deleteCard(cardNumber)
+                }
+            })
+        },
+        deleteCard(cardNumber) {
+            console.log("yendo a back");
+            axios.post('/api/cards/delete', `cardNumber=${cardNumber}`)
+                .then(response => {
+                    swal({
+                        title: "DONE!",
+                        text: `Your card number ${cardNumber} is no long available. Fully deletion upon agent report`,
+                        icon: "info",
+                        buttons: "Ok",
+                        dangerMode: false,
+                    }).then((e) => {
+                        if (e) {
+                            window.location.href = "./cards.html"
+                        }
+                    })
+                }).catch(error => console.log(error))
+        },
         spinnerOut(){   
             document.getElementsByClassName("spinnerContainer")[0].classList.add("d-none")    
             this.$refs.nav.classList.remove("d-none")

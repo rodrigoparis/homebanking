@@ -65,6 +65,7 @@
       <section class="row col-12 justify-content-center" v-if="creditCards.length>0">
         <p class="text-center m-5 fs-2 fw-bold">My MHBrothers Credit Cards</p>
         <div class=" justify-content-center col-12 col-md-3" v-for="card in creditCards">
+
           <div class="row card-own" :class="{ disabledSection: isOverdue(card.thruDate) }">
             <div class="card-inner">
               <div class="front"
@@ -95,6 +96,7 @@
                   <p>{{thruDate(card)}}</p>
                 </div>
               </div>
+
               <div class="back"
                 :class="{titanium : card.color == 'TITANIUM', gold : card.color =='GOLD', silver : card.color =='SILVER'}">
                 <img src="./assets/images/map.png" class="map-img" alt="">
@@ -114,6 +116,12 @@
                     <img src="./assets/images/visa-credit.png" class="back-logo" width="60px" alt="">
                     <p class="text-end">{{card.type}}</p>
                   </div>
+                </div>
+                <div class="position-absolute top-0 end-0 me-2 deleteCardX" @click="deleteWarn(card.number)"
+                  v-if="clientData.cards && clientData.cards.length >= 1">
+                  <p class="text-muted fst-italic font-monospace text-end my-3 p-2 toDelete"><i
+                      class="fas fa-2x fa-trash"></i>
+                  </p>
                 </div>
               </div>
             </div>
@@ -174,6 +182,12 @@
                     <img src="./assets/images/visa-credit.png" class="back-logo" width="60px" alt="">
                     <p class="text-end">{{card.type}}</p>
                   </div>
+                </div>
+                <div class="position-absolute top-0 end-0 me-2 deleteCardX" @click="deleteWarn(card.number)"
+                  v-if="clientData.cards && clientData.cards.length >= 1">
+                  <p class="text-muted fst-italic font-monospace text-end my-3 p-2 toDelete"><i
+                      class="fas fa-2x fa-trash"></i>
+                  </p>
                 </div>
               </div>
             </div>

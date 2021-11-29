@@ -25,6 +25,7 @@ public class Card {
     private CardType type;
     private CardColor color;
     private String cvv;
+    private Boolean enabled;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="client_id")
@@ -39,6 +40,7 @@ public class Card {
         this.cvv = cvv;
         this.cardHolder = client.getLast_name() + " " +client.getFirst_name();
         this.client = client;
+        this.enabled = true;
     }
 
     public void setCardHolder() {
