@@ -84,10 +84,11 @@
                             <div class="col-8 col-lg-8 p-2 p-lg-2">
                                 <a class="nav-link" aria-current="page" :href="getID(account)">
                                     <h5>Account N° {{account.number}}</h5>
+                                    <h6>Account Type: {{account.accountType}}</h6>
                                     <p>Opening Date: {{openingDate(account)}}</p>
                                 </a>
                             </div>
-                            <div class="col-4 pt-5 col-lg-2 p-lg-2 border-start">
+                            <div class="col-4 pt-5 col-lg-4 p-lg-2 border-start">
                                 <a class="nav-link p-0 py-md-2 px-md-4" aria-current="page" :href="getID(account)">
                                     <h5 class="text-center align-self-center pt-lg-4">${{account.balance}}</h5>
                                 </a>

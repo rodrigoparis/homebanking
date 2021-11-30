@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+import com.mindhub.homebanking.enums.AccountType;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Transaction;
 import com.mindhub.homebanking.repositories.AccountRepository;
@@ -61,7 +62,7 @@ public class AccountController {
     }
 
     @PostMapping("/clients/current/accounts")
-    public ResponseEntity<Object> addAccount(Authentication auth) {
+    public ResponseEntity<Object> addAccount(Authentication auth, String accountType) {
 
         Client client = clientRepository.findByEmail(auth.getName()).orElse(null);
 
@@ -75,9 +76,15 @@ public class AccountController {
             return new ResponseEntity<>("Account limit reached for this client", HttpStatus.FORBIDDEN);
         }
 
-        if (accountServiceImpl.createAccount(client)) {
-            return new ResponseEntity<>("CREATED", HttpStatus.CREATED);
+        try {
+            AccountType accType = AccountType.valueOf(accountType);
+            if (accountServiceImpl.createAccount(client, accType)) {
+                return new ResponseEntity<>("CREATED", HttpStatus.CREATED);
+            }
+        } catch (IllegalArgumentException exc) {
+            return new ResponseEntity<>("Inexisting Account Type", HttpStatus.BAD_REQUEST);
         }
+
 
         //In case something unexpected occurs send ERROR
         return new ResponseEntity<>("Something went wrong, please contact Support Service", HttpStatus.INTERNAL_SERVER_ERROR);

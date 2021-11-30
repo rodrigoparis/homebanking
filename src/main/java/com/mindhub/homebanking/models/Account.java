@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.models;
 
 
+import com.mindhub.homebanking.enums.AccountType;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,6 +25,7 @@ public class Account {
     private LocalDateTime creationDate;
     private Double balance;
     private Boolean enabled;
+    private AccountType accountType;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
@@ -34,12 +36,13 @@ public class Account {
     @ToString.Exclude
     private List<Transaction> transactions = new ArrayList<>();
 
-    public Account(String number, LocalDateTime creationDate, Double balance, Client client) {
+    public Account(String number, LocalDateTime creationDate, Double balance, Client client, AccountType accountType) {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
         this.client = client;
         this.enabled = true;
+        this.accountType = accountType;
     }
 
     @JsonIgnore

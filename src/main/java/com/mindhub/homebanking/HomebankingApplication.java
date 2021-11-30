@@ -1,5 +1,6 @@
 package com.mindhub.homebanking;
 
+import com.mindhub.homebanking.enums.AccountType;
 import com.mindhub.homebanking.enums.CardColor;
 import com.mindhub.homebanking.enums.CardType;
 import com.mindhub.homebanking.enums.UserRol;
@@ -58,8 +59,8 @@ public class HomebankingApplication {
             clients.save(admin);
 
             Client clientMelba = new Client("Melba", "Morel", "melba@mindhub.com", passwordEncoder.encode("melba"), UserRol.CLIENT);
-            Account account = new Account("VIN-003", LocalDateTime.now().minusDays(5), 700D, clientMelba);
-            Account account2 = new Account("VIN-004", LocalDateTime.now().plusDays(1), 250D, clientMelba);
+            Account account = new Account("VIN-003", LocalDateTime.now().minusDays(5), 700D, clientMelba, AccountType.SAVINGS);
+            Account account2 = new Account("VIN-004", LocalDateTime.now().plusDays(1), 250D, clientMelba, AccountType.CHECKING);
             clientMelba.setIsEnabled(true);
 
             clients.save(clientMelba);
@@ -72,8 +73,8 @@ public class HomebankingApplication {
             clientRicardo.setIsEnabled(true);
 
             //Creación Cuentas
-            Account account3 = new Account("VIN-001", LocalDateTime.now(), 5000D, clientRicardo);
-            Account account4 = new Account("VIN-002", LocalDateTime.now().plusDays(1), 7032D, clientRicardo);
+            Account account3 = new Account("VIN-001", LocalDateTime.now(), 5000D, clientRicardo, AccountType.SAVINGS);
+            Account account4 = new Account("VIN-002", LocalDateTime.now().plusDays(1), 7032D, clientRicardo, AccountType.CHECKING);
 
             //Agregación Cuentas a Cliente
             clientRicardo.addAccount(account3);

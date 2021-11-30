@@ -5,6 +5,7 @@ const app = Vue.createApp({
             clientData: {
                 accounts: []
             },
+            newAccountType: "CHECKING",
             accountsLink: "",
             first_name: "",
             last_name: "",
@@ -67,11 +68,11 @@ const app = Vue.createApp({
                     }, 3500);
                 })
                 .catch(e => {
-                    
+
                 })
         },
-        spinnerOut(){   
-            document.getElementsByClassName("spinnerContainer")[0].classList.add("d-none")    
+        spinnerOut() {
+            document.getElementsByClassName("spinnerContainer")[0].classList.add("d-none")
             this.$refs.nav.classList.remove("d-none")
             this.$refs.main.classList.remove("d-none")
             this.$refs.footer.classList.remove("d-none")
@@ -111,7 +112,7 @@ const app = Vue.createApp({
             return `./account.html?id=${account.account_id}&client_id=${this.clientData.id}`
 
         },
-        logOut() {         
+        logOut() {
             axios.post('/api/logout')
                 .then(response => {
                     window.location.href = "./index.html";
@@ -120,10 +121,11 @@ const app = Vue.createApp({
                     console.log(error);
                 })
         },
-        createAccount() {
-            axios.post('/api/clients/current/accounts')
+        postAccountRequest(e) {
+            console.log(this.newAccountType);
+            axios.post('/api/clients/current/accounts', `accountType=${this.newAccountType}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                 .then(response => {
-                    swal("That's great!", "We've created a new account for you!", "success")
+                    swal("That's great!", `We've created a new ${this.newAccountType} account for you!`, "success")
                         .then(response => {
                             window.location.href = "./accounts.html";
                         })
@@ -134,6 +136,23 @@ const app = Vue.createApp({
                     swal("We're sorry", error.response.data, "info");
 
                 })
+        },
+        createAccount() {
+            swal({
+                title: "New account Generator",
+                text: `Wich type of account would you like to open?`,
+                icon: "success",
+                buttons: ["CHECKING", "SAVINGS"],
+                dangerMode: false,
+            }).then((e) => {
+                if (e) {
+                    this.newAccountType = "SAVINGS"
+                } else {
+                    this.newAccountType = "CHECKING"
+
+                }
+                this.postAccountRequest()
+            })
         },
         payOutFx(id, remainingPayments) {
             this.payOutData.clientLoanId = id
@@ -187,7 +206,7 @@ const app = Vue.createApp({
         maxAccounts() {
             return this.clientData.accounts.length < 3
         },
-        hasGraphics(){
+        hasGraphics() {
             return !this.savings > 0
         }
 

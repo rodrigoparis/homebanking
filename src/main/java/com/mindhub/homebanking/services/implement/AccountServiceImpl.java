@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.services.implement;
 
 import com.mindhub.homebanking.dtos.AccountDTO;
+import com.mindhub.homebanking.enums.AccountType;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
@@ -24,7 +25,7 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
 
     @Override
-    public boolean createAccount (Client client) {
+    public boolean createAccount (Client client, AccountType accountType) {
 
         Account account = new Account();
 
@@ -32,6 +33,7 @@ public class AccountServiceImpl implements AccountService {
         account.setBalance(0D);
         account.setCreationDate(LocalDateTime.now());
         account.setEnabled(true);
+        account.setAccountType(accountType);
 
         Integer accountCode = account.hashCode();
         Integer clientCode = client.hashCode();

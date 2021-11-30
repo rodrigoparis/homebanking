@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.services.implement;
 
 import com.mindhub.homebanking.email.EmailServiceImpl;
+import com.mindhub.homebanking.enums.AccountType;
 import com.mindhub.homebanking.enums.UserRol;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.ConfirmationToken;
@@ -53,7 +54,7 @@ public class ClientServiceImpl implements UserDetailsService, ClientService {
         Client client = new Client(request.getName(), request.getLast_name(), request.getEmail(), encodedPassword, UserRol.CLIENT);
 
         clientRepository.save(client);
-        accountServiceImpl.createAccount(client);
+        accountServiceImpl.createAccount(client, AccountType.SAVINGS);
 
         String token = UUID.randomUUID().toString();
         ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15), client);

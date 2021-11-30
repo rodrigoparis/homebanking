@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.dtos;
 
+import com.mindhub.homebanking.enums.AccountType;
 import lombok.Data;
 
 import java.util.LinkedHashSet;
@@ -18,6 +19,7 @@ public class AccountDTO {
     private String number;
     private LocalDateTime creationDate;
     private Double balance;
+    private AccountType accountType;
     private Set<TransactionDTO> transactions = new LinkedHashSet<>();
 
     public AccountDTO(Account account) {
@@ -26,5 +28,6 @@ public class AccountDTO {
         this.creationDate = account.getCreationDate();
         this.balance = account.getBalance();
         this.transactions = account.getTransactions().stream().map(TransactionDTO::new).collect(Collectors.toSet());
+        this.accountType = account.getAccountType();
     }
 }

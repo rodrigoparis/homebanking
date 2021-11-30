@@ -66,10 +66,15 @@
 
     <main class="row d-none" ref="main">
       <div class="row justify-content-between border-bottom mb-2">
-        <h3 class="col-12 col-lg-4 my-4 mx-lg-5 p-lg-4"><strong>Current Account:</strong> {{accountData.number}}
-        </h3>
+        <div class="col-12 col-lg-4 my-4 mx-lg-5 p-lg-4">
+          <h3><strong> Account N°:</strong> {{accountData.number}}
+          </h3>
+          <h3><strong>Type:</strong> {{accountData.accountType}}</h3>
+        </div>
+
         <h3 class="col-6 col-lg-4 my-4 mx-lg-5 p-lg-4 text-start text-lg-end"><strong>Balance:</strong>
           ${{accountData.balance}}</h3>
+
       </div>
 
       <section class="col-12 col-lg-6 ms-lg-5">
@@ -143,9 +148,10 @@
             </div>
           </div>
         </div>
-        <div class="d-flex justify-content-end" @click="deleteWarn" v-if="clientData.accounts && clientData.accounts.length > 1">
-          <p class="text-muted fst-italic font-monospace text-end my-3 p-2 border rounded-3 bg-white toDelete">I want to
-            delete this account</p>
+        <div class="d-flex justify-content-end" @click="deleteWarn"
+          v-if="clientData.accounts && clientData.accounts.length > 1">
+          <p class="text-muted fst-italic font-monospace text-end my-3 p-2 toDelete"><i
+            class="fas fa-2x fa-trash"></i>
         </div>
       </section>
       <div class="col-lg-5">
