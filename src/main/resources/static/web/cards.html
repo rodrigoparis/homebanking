@@ -117,7 +117,7 @@
                     <p class="text-end">{{card.type}}</p>
                   </div>
                 </div>
-                <div class="position-absolute top-0 end-0 me-2 deleteCardX" @click="deleteWarn(card.number)"
+                <div class="position-absolute bottom-0 start-0 deleteCardX" @click="deleteWarn(card.number)"
                   v-if="clientData.cards && clientData.cards.length >= 1">
                   <p class="text-muted fst-italic font-monospace text-end my-3 p-2 toDelete"><i
                       class="fas fa-2x fa-trash"></i>

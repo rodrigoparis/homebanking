@@ -33,6 +33,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -163,10 +164,10 @@ public class PDFServiceImpl implements PDFService {
         Table footer = new Table(1).useAllAvailableWidth();
 
 
-        Cell cell = new Cell().add(new Paragraph("MindHub Brothers | Homebanking ").setTextAlignment(TextAlignment.CENTER));
+        Cell cell = new Cell().add(new Paragraph("MindHub Brothers | Homebanking ").setTextAlignment(TextAlignment.CENTER)).setBorder(Border.NO_BORDER);
         footer.addCell(cell);
-
-        cell = new Cell().add(new Paragraph(LocalDateTime.now().format(ISO_LOCAL_DATE)).setTextAlignment(TextAlignment.RIGHT));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        cell = new Cell().add(new Paragraph(LocalDateTime.now().format(formatter)).setTextAlignment(TextAlignment.CENTER)).setBorder(Border.NO_BORDER);
         footer.addCell(cell);
         pdfDocument.addEventHandler(PdfDocumentEvent.END_PAGE, new TableFooterEventHandler(footer));
         document.close();

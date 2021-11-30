@@ -122,7 +122,6 @@ const app = Vue.createApp({
                 })
         },
         postAccountRequest(e) {
-            console.log(this.newAccountType);
             axios.post('/api/clients/current/accounts', `accountType=${this.newAccountType}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                 .then(response => {
                     swal("That's great!", `We've created a new ${this.newAccountType} account for you!`, "success")
@@ -132,7 +131,6 @@ const app = Vue.createApp({
 
                 })
                 .catch(error => {
-                    console.log(error.message);
                     swal("We're sorry", error.response.data, "info");
 
                 })
@@ -141,17 +139,20 @@ const app = Vue.createApp({
             swal({
                 title: "New account Generator",
                 text: `Wich type of account would you like to open?`,
-                icon: "success",
-                buttons: ["CHECKING", "SAVINGS"],
+                icon: "info",
+                buttons: {
+                    CHECKING: "CHECKING",
+                    SAVINGS: "SAVINGS",
+                    CANCEL: "CANCEL"
+                },
                 dangerMode: false,
             }).then((e) => {
-                if (e) {
-                    this.newAccountType = "SAVINGS"
-                } else {
-                    this.newAccountType = "CHECKING"
-
+                console.log(e);
+                if (e != "CANCEL") {
+                    this.newAccountType = e
+                    this.postAccountRequest()
                 }
-                this.postAccountRequest()
+                
             })
         },
         payOutFx(id, remainingPayments) {

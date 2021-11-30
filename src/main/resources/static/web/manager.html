@@ -10,12 +10,39 @@
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
   <link rel="stylesheet" href="./styles/style.css">
-
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+  integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
   <title>Client Manager</title>
 </head>
 
 <body>
-  <div id="app" v-cloak>
+  <div class="d-flex flex-column h-100" id="app" v-cloak>
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+      <div class="container-fluid" id="sticky-nav">
+        <a class="navbar-brand" href="#" id="title"><strong class="font-monospace">MHOME</strong>BANKING</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
+          aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsExample04">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="../h2-console">H2 Database</a>
+            </li>                       
+          </ul>
+          <button class="btn btn-hover" @click="logOut"><a href="./index.html"> <i class="fas fa-door-open fa-2x"
+                id="exit-btn"></i></a></button>
+        </div>
+      </div>
+    </nav>
+
+    <header class="d-flex bd-highlight mb-3 row justify-content-between" id="header">
+      <div class="row col-12 mt-3 py-md-4 px-md-5 bd-highlight">
+        <img src="./assets/profile-pic.jpg" alt=""
+          class=" col-lg-5 profile-pic rounded-circle mx-auto mt-5 my-lg-auto mx-lg-5">
+        <p class="fs-4 text-center pt-3 text-lg-start py-lg-5 col-12 col-md-8"> MindHub Brothers Manager Interface</p>
+      </div>
+    </header>
     <main class="d-flex justify-content-evenly row">
       <form method="POST" novalidate="true" class="col-12 col-md-3 p-5 mx-auto" id="formulario">
         <h2>Loan Creator Manager</h2>
@@ -25,11 +52,11 @@
         </div>
         <div class="my-4">
           <label for="maxAmount">Max requested Amount</label>
-          <input type="number" id="maxAmount" name="maxAmount" class="form-control" v-model="maxAmount">
+          <input type="number" id="maxAmount" name="maxAmount" class="form-control" v-model="maxAmount" min="0">
         </div>
         <div class="my-4">
           <label for="interest">Interest</label>
-          <input type="number" id="interest" name="interest" class="form-control" v-model="interest">
+          <input type="number" id="interest" name="interest" class="form-control" v-model="interest" min="0">
         </div>
         <div class="my-4">
           <label for="description">Description (Max. character 250)</label>
@@ -44,14 +71,20 @@
       </form>
       <div class="col-12 col-md-3 p-5 mx-auto">
         <h2>Acces Database</h2>
-        <button type="button" class="btn btn-primary my-2"><a href="../h2-console" class="text-white"> GO TO DATABASE</a></button>
+        <button type="button" class="btn btn-primary my-2"><a href="../h2-console" class="text-white"> GO TO
+            DATABASE</a></button>
       </div>
       <div class="col-12 col-md-3 p-5 mx-auto">
         <h2>Log out</h2>
         <button type="button" class="btn btn-primary my-2" @click="logOut">LOGOUT</button>
       </div>
     </main>
-
+    <footer
+      class="d-flex flex-wrap justify-content-center align-items-center py-3  footer border-top">
+      <a class="navbar-brand col-6 ms-4" href="#" id="title"><strong class="font-monospace">MHOME</strong>BANKING</a>
+      <p class="col-3 mb-0 text-muted ms-4">&copy; 2021 MindHub, Inc</p>
+     
+    </footer>
   </div>
   <!-- Axios -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
