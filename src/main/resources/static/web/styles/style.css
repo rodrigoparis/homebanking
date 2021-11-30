@@ -177,8 +177,7 @@ exit-btn:hover {
 }
 
 .deleteCardX {
-    margin-top: -.5rem;
-
+    margin-left: -.3rem !important;
 }
 
 .toDelete:hover {
