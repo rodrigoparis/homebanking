@@ -68,7 +68,7 @@ public class HomebankingApplication {
             accounts.save(account2);
             clients.save(clientMelba);
 
-            //Creación Segundo Cliente
+            //Creación Segundo Cliente de prueba
             Client clientRicardo = new Client("Ricardo", "Morel", "ricardo@mindhub.com", passwordEncoder.encode("ricardo"), UserRol.CLIENT);
             clientRicardo.setIsEnabled(true);
 
