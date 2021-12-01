@@ -132,7 +132,7 @@ const app = Vue.createApp({
                 am4core.color("#0f044d"),
             ];
             chart.data = this.transactions
-            chart.data = chart.data.slice(0, 5).map(element => {
+            chart.data = chart.data.slice(0, 10).map(element => {
                 let data =
                 {
                     "date": element.date.slice(5, 10),
@@ -162,7 +162,7 @@ const app = Vue.createApp({
             series2.dataFields.categoryX = "date";
             series2.smoothing = "monotoneX";
             var title = chart.titles.create();
-            title.text = "Last 5 Movements";
+            title.text = "Last 10 Movements";
             title.align = "center"
             title.fontSize = 25;
             title.marginBottom = 20;
