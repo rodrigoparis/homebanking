@@ -49,7 +49,6 @@ const app = Vue.createApp({
                         }, 1000);
                     });
                     this.accountData = response.data.accounts.find(account => account.account_id == this.currentAccountID);
-                    console.log(this.accountData);
                     this.transactions = this.accountData.transactions.sort((a, b) => new Date(b.date) - new Date(a.date))
                     this.fromDate = new Date(this.accountData.creationDate);
                     this.toDate = new Date();
