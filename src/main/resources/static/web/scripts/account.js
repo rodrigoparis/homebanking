@@ -275,10 +275,10 @@ const app = Vue.createApp({
         filteredTransactions() {
             let from = new Date(this.fromDate);
             let to = new Date(this.toDate);
-            let auxTo = to.getDate() + 2;
+            let auxTo = to.getDate() + 1;
             let auxFrom = from.getDate();
             to.setDate(auxTo);
-            from.setDate(auxFrom + 1)
+            from.setDate(auxFrom)
             return this.transactions.filter(tr => new Date(tr.date) > from && new Date(tr.date) < to)
                 .filter(transaction => transaction.description.toLowerCase()
                     .includes(this.search.toLowerCase())
