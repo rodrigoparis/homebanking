@@ -171,7 +171,7 @@ public class TransactionServiceImpl implements TransactionService {
     public String filterTransactions(HttpServletResponse response, Client client, String accountNumber, LocalDateTime fromDate, LocalDateTime toDate) throws IOException {
         Account account = accountRepository.findByNumber(accountNumber).orElse(null);
 
-        HashSet<Transaction> transactions= account.getTransactions().stream().filter(transaction -> transaction.getDate().isBefore(toDate.plusDays(1)) && transaction.getDate().isAfter(fromDate)).collect(Collectors.toCollection(HashSet::new));
+        HashSet<Transaction> transactions= account.getTransactions().stream().filter(transaction -> transaction.getDate().isBefore(toDate.plusDays(1)) && transaction.getDate().isAfter(fromDate)).sorted().collect(Collectors.toCollection(LinkedHashSet::new));
 
         if (transactions.size() >0){
             pdfService.generatePDF(response, client, accountNumber, transactions);

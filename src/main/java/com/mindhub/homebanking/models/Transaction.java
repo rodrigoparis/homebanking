@@ -38,7 +38,14 @@ public class Transaction implements Comparable<Transaction> {
     private Account account;
 
 
-    public Transaction(TransactionType type, Double amount, String description, LocalDateTime date, String originAccount, String destinationAccount, String receiver, String sender) {
+    public Transaction(TransactionType type,
+                       Double amount,
+                       String description,
+                       LocalDateTime date,
+                       String originAccount,
+                       String destinationAccount,
+                       String receiver,
+                       String sender) {
         this.type = type;
         this.amount = amount;
         this.description = description;
@@ -54,7 +61,7 @@ public class Transaction implements Comparable<Transaction> {
         return "Transaction" + '\n' +
                 "Id: " + id + '\n' +
                 "Type: " + type + '\n' +
-                "Amount: " +  amount+ '\n' +
+                "Amount: " + amount + '\n' +
                 "Description: " + description + '\n' +
                 "Date: " + date;
     }
@@ -66,6 +73,6 @@ public class Transaction implements Comparable<Transaction> {
 
     @Override
     public int compareTo(@NotNull Transaction o) {
-        return this.type.compareTo(o.type);
+        return this.date.isBefore(o.date) ? 1 : 0;
     }
 }
