@@ -59,8 +59,8 @@ public class HomebankingApplication {
             clients.save(admin);
 
             Client clientMelba = new Client("Melba", "Morel", "melba@mindhub.com", passwordEncoder.encode("melba"), UserRol.CLIENT);
-            Account account = new Account("VIN-003", LocalDateTime.now().minusDays(5), 700D, clientMelba, AccountType.SAVINGS);
-            Account account2 = new Account("VIN-004", LocalDateTime.now().plusDays(1), 250D, clientMelba, AccountType.CHECKING);
+            Account account = new Account("VIN-003", LocalDateTime.now().minusDays(15), 700D, clientMelba, AccountType.SAVINGS);
+            Account account2 = new Account("VIN-004", LocalDateTime.now().minusDays(10), 250D, clientMelba, AccountType.CHECKING);
             clientMelba.setIsEnabled(true);
 
             clients.save(clientMelba);

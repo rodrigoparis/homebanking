@@ -1,7 +1,4 @@
 
-
-
-
 const app = Vue.createApp({
     data() {
         return {
@@ -10,6 +7,8 @@ const app = Vue.createApp({
             accountData: [],
             json: "",
             transactions: [],
+            fromDate: "",
+            toDate: "",
             currentAccountID: 0,
             creditClass: 'creditClass',
             debitClass: 'debitClass',
@@ -25,14 +24,43 @@ const app = Vue.createApp({
         this.loadData();
     },
     methods: {
-        spinnerOut() {
-            document.getElementsByClassName("spinnerContainer")[0].classList.add("d-none")
-            this.$refs.nav.classList.remove("d-none")
-            this.$refs.main.classList.remove("d-none")
-            this.$refs.footer.classList.remove("d-none")
-            this.$refs.header.classList.remove("d-none")
+        getIds() {
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            this.currentAccountID = urlSearchParams.get("id")
         },
-        createGraphic() {
+        loadData() {
+            axios.get(`https://free.currconv.com/api/v7/convert?q=EUR_ARS,EUR_USD&compact=ultra&apiKey=3336f2ed8252b2b54d39`)
+                .then(response => {
+                    ;
+                    this.ARS = response.data.EUR_ARS
+                    this.USD = response.data.EUR_USD
+                })
+                .catch(e => {
+
+                })
+
+            axios.get(`/api/clients/current`)
+                .then(response => {
+                    this.clientData = response.data
+                    this.clientData.accounts.forEach(element => {
+                        this.savings += element.balance;
+                        setTimeout(() => {
+                            this.spinnerOut();
+                        }, 1000);
+                    });
+                    this.accountData = response.data.accounts.find(account => account.account_id == this.currentAccountID);
+                    console.log(this.accountData);
+                    this.transactions = this.accountData.transactions.sort((a, b) => new Date(b.date) - new Date(a.date))
+                    this.fromDate = new Date(this.accountData.creationDate);
+                    this.toDate = new Date();
+                    this.createGraphic();
+                    this.isReady = true;
+                })
+                .catch(e => {
+
+                })
+        },
+         createGraphic() {
             // var root = am5.Root.new("chartdiv");
             // var chart = root.container.children.push(
             //     am5xy.XYChart.new(root, {
@@ -151,47 +179,13 @@ const app = Vue.createApp({
 
 
         },
-        getIds() {
-            const urlSearchParams = new URLSearchParams(window.location.search);
-            this.currentAccountID = urlSearchParams.get("id")
-        },
-        loadData() {
-            axios.get(`https://free.currconv.com/api/v7/convert?q=EUR_ARS,EUR_USD&compact=ultra&apiKey=3336f2ed8252b2b54d39`)
-                .then(response => {
-                    ;
-                    this.ARS = response.data.EUR_ARS
-                    this.USD = response.data.EUR_USD
-                })
-                .catch(e => {
-
-                })
-            axios.get(`/api/accounts/${this.currentAccountID}`)
-                .then(response => {
-                    this.json = response
-                    this.accountData = response.data
-                    this.transactions = response.data.transactions.sort((a, b) => new Date(b.date) - new Date(a.date))
-
-                    this.createGraphic();
-                    this.isReady = true;
-
-                })
-                .catch(e => {
-
-                })
-            axios.get(`/api/clients/current`)
-                .then(response => {
-                    this.clientData = response.data
-                    this.clientData.accounts.forEach(element => {
-                        this.savings += element.balance;
-                        setTimeout(() => {
-                            this.spinnerOut();
-                        }, 1000);
-                    });
-                })
-                .catch(e => {
-
-                })
-        },
+        spinnerOut() {
+            document.getElementsByClassName("spinnerContainer")[0].classList.add("d-none")
+            this.$refs.nav.classList.remove("d-none")
+            this.$refs.main.classList.remove("d-none")
+            this.$refs.footer.classList.remove("d-none")
+            this.$refs.header.classList.remove("d-none")
+        },              
         currentDate() {
             const current = new Date();
             const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
@@ -200,19 +194,30 @@ const app = Vue.createApp({
         getID(account) {
             return `./account.html?id=${account.account_id}&client_id=${this.clientData.id}`
 
-        },
-        logout() {
-            axios.post('/api/logout')
-                .then(response => {
-                })
-                .catch(error => console.log(error))
-                .finally(
-                    window.location.href = "./index.html"
-                )
-        },
+        },        
         getSummary() {
             axios.post('/api/account/summary', `accountNumber=${this.accountData.number}`, { responseType: 'blob' })
                 .then(response => {
+                    console.log(response);
+                    let dis = response.headers['content-disposition'];
+                    let file = decodeURI(dis.substring(21));
+                    let link = document.createElement('a')
+                    link.href = window.URL.createObjectURL(response.data)
+                    link.download = file
+                    link.click()
+                    link.remove()
+                })
+                .catch(error => console.log(error))
+        },
+        filteredSummary() {
+            let from = new Date(this.fromDate).toISOString();
+
+            let to = new Date(this.toDate).toISOString();
+
+
+            axios.post('/api/transactions/filterTransactions', `accountNumber=${this.accountData.number}&from=${from}&to=${to}`, { responseType: 'blob' })
+                .then(response => {
+                    console.log(response);
                     let dis = response.headers['content-disposition'];
                     let file = decodeURI(dis.substring(21));
                     let link = document.createElement('a')
@@ -244,7 +249,7 @@ const app = Vue.createApp({
                     console.log(response);
                     swal({
                         title: "DONE!",
-                        text: `Your account number ${this.accountData.number} is no long available. Fully deletion upon agent report`,
+                        text: `Your account number ${this.accountData.number} is no longer available. Fully deletion upon agent report`,
                         icon: "info",
                         buttons: "Ok",
                         dangerMode: false,
@@ -255,16 +260,30 @@ const app = Vue.createApp({
                         }
                     })
                 }).catch(error => console.log(error))
-        }
-
+        },
+        logout() {
+            axios.post('/api/logout')
+                .then(response => {
+                })
+                .catch(error => console.log(error))
+                .finally(
+                    window.location.href = "./index.html"
+                )
+        },
     },
     computed: {
         filteredTransactions() {
-            return this.transactions.filter(transaction => transaction.description.toLowerCase()
-                .includes(this.search.toLowerCase())
-                || transaction.amount.toString().includes(this.search.toLowerCase()) || transaction.date
-                    .includes(this.search)
-                || transaction.type.toLowerCase().includes(this.search.toLowerCase()))
+            let from = new Date(this.fromDate);
+            let to = new Date(this.toDate);
+            let auxTo = to.getDate() + 2;
+            let auxFrom = from.getDate();
+            to.setDate(auxTo);
+            from.setDate(auxFrom + 1)
+            return this.transactions.filter(tr => new Date(tr.date) > from && new Date(tr.date) < to)
+                .filter(transaction => transaction.description.toLowerCase()
+                    .includes(this.search.toLowerCase())
+                    || transaction.amount.toString().includes(this.search.toLowerCase())
+                    || transaction.type.toLowerCase().includes(this.search.toLowerCase()))
         },
         hasGraphics() {
             return this.transactions.length == 0
@@ -272,7 +291,5 @@ const app = Vue.createApp({
     }
 })
 app.mount("#app")
-
-
 
 

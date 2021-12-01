@@ -175,6 +175,9 @@ exit-btn:hover {
 .toDelete {
     font-size: 0.7rem !important;
 }
+.date{
+    width: 41%!important;
+}
 
 .deleteCardX {
     margin-left: -.3rem !important;

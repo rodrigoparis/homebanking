@@ -1,11 +1,10 @@
 package com.mindhub.homebanking.services.implement;
 
 
+import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import com.mindhub.homebanking.models.*;
 import org.springframework.http.HttpStatus;
@@ -16,6 +15,8 @@ import com.mindhub.homebanking.enums.TransactionType;
 import org.springframework.security.core.Authentication;
 import com.mindhub.homebanking.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.servlet.http.HttpServletResponse;
 
 
 @Service
@@ -32,6 +33,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private PDFServiceImpl pdfService;
 
     @Override
     public String createTransaction(String originAccountNumber, String destinationAccountNumber, Double amount, String description, Authentication auth) {
@@ -163,4 +167,22 @@ public class TransactionServiceImpl implements TransactionService {
         accountRepository.save(destinationAccount);
     }
 
+    @Override
+    public String filterTransactions(HttpServletResponse response, Client client, String accountNumber, LocalDateTime fromDate, LocalDateTime toDate) throws IOException {
+        Account account = accountRepository.findByNumber(accountNumber).orElse(null);
+
+        HashSet<Transaction> transactions= account.getTransactions().stream().filter(transaction -> transaction.getDate().isBefore(toDate.plusDays(1)) && transaction.getDate().isAfter(fromDate)).collect(Collectors.toCollection(HashSet::new));
+
+        if (transactions.size() >0){
+            pdfService.generatePDF(response, client, accountNumber, transactions);
+            return "success";
+        }
+
+        return "No transactions found for those dates";
+
+
+
+
+
+    }
 }

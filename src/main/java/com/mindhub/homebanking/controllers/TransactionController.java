@@ -1,5 +1,7 @@
 package com.mindhub.homebanking.controllers;
 
+import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.Transaction;
 import org.springframework.http.HttpStatus;
 import com.mindhub.homebanking.models.Client;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,13 @@ import com.mindhub.homebanking.repositories.AccountRepository;
 import org.springframework.transaction.annotation.Transactional;
 import com.mindhub.homebanking.repositories.TransactionRepository;
 import com.mindhub.homebanking.services.implement.TransactionServiceImpl;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;
 
 @RestController
 @RequestMapping("/api")
@@ -57,7 +66,6 @@ public class TransactionController {
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         }
 
-
         return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
     }
 
@@ -75,5 +83,29 @@ public class TransactionController {
 
     }
 
+    @PostMapping("/transactions/filterTransactions")
+    public ResponseEntity<String> getFilteredTransactions(HttpServletResponse response, Authentication auth, String accountNumber, String from, String to) throws IOException {
+        LocalDateTime fromDate  = LocalDateTime.parse(from, DateTimeFormatter.ISO_DATE_TIME);
+        LocalDateTime toDate = LocalDateTime.parse(to, DateTimeFormatter.ISO_DATE_TIME);
+        Client client = clientRepository.findByEmail(auth.getName()).orElse(null);
+        response.setContentType("application/pdf");
+        String date = LocalDateTime.now().format(ISO_LOCAL_DATE);
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=" + "AC-SUMMARY-" + accountNumber + client.getLast_name().toUpperCase() + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        String message =  transactionServiceImpl.filterTransactions(response,client,accountNumber, fromDate,toDate);
+
+        if (message.contains("success")){
+
+            return new ResponseEntity<>("Filter successful", HttpStatus.OK);
+
+        }
+
+
+
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+
+    }
 
 }

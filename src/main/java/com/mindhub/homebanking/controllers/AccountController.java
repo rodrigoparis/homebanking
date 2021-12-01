@@ -3,7 +3,7 @@ package com.mindhub.homebanking.controllers;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import com.mindhub.homebanking.enums.AccountType;
@@ -106,7 +106,10 @@ public class AccountController {
         String headerValue = "attachment; filename=" + "AC-SUMMARY-" + accountNumber + client.getLast_name().toUpperCase() + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        pdfService.generateAccountResume(response, client, account);
+        LinkedHashSet<Transaction> transactions = new LinkedHashSet<>(account.getTransactions());
+
+
+        pdfService.generatePDF(response, client, accountNumber, transactions);
 
     }
 
@@ -119,12 +122,14 @@ public class AccountController {
             return new ResponseEntity<String>("Account doesn't belong to authenticated client", HttpStatus.FORBIDDEN);
         }
 
-        account.setEnabled(false);
-        accountRepository.save(account);
+        if (accountServiceImpl.deleteAccount(account)) {
+            return new ResponseEntity<String>("Deletion succeed, please wait confirmation from our agents", HttpStatus.ACCEPTED);
+        }
 
-        return new ResponseEntity<String>("Deletion succeed, please wait confirmation from our agents", HttpStatus.ACCEPTED);
-
+        return new ResponseEntity<String>("Something wrong happened", HttpStatus.FORBIDDEN);
 
     }
+
+
 
 }

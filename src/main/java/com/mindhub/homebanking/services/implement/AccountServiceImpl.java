@@ -66,6 +66,12 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.findById(id).map(AccountDTO::new).orElse(null);
     }
 
+    @Override
+    public boolean deleteAccount(Account account) {
+        account.setEnabled(false);
+        accountRepository.save(account);
+        return true;
+    }
 
 
 

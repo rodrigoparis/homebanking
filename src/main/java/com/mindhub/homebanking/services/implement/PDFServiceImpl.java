@@ -50,7 +50,7 @@ public class PDFServiceImpl implements PDFService {
     private AccountRepository accountRepo;
 
     @Override
-    public void generateAccountResume(HttpServletResponse response, Client client, Account account) throws IOException {
+    public void generatePDF(HttpServletResponse response, Client client, String accountNumber, Set<Transaction> transactions) throws IOException {
 
         //La linea 56 perimte que una vez creado el pdf se guarde en la response,
         //eso hace que se descargue al encontrar la respuesta
@@ -99,7 +99,7 @@ public class PDFServiceImpl implements PDFService {
                 .add(new Paragraph("Account N°: "))
                 .setBorder(Border.NO_BORDER));
         clientTableInfo.addCell(new Cell()
-                .add(new Paragraph(account.getNumber()))
+                .add(new Paragraph(accountNumber))
                 .setBorder(Border.NO_BORDER));
         clientTableInfo.addCell(new Cell()
                 .add(new Paragraph("Date: "))
@@ -143,7 +143,6 @@ public class PDFServiceImpl implements PDFService {
         document.add(clientTableInfo);
         document.add(new Paragraph("\n"));
         dataTable.startNewRow();
-        LinkedHashSet<Transaction> transactions = new LinkedHashSet<>(account.getTransactions());
 
 
         for (Transaction tr : transactions) {
