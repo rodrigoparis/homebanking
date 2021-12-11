@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpMethod;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +29,7 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers("/web/index.html", "/web/styles/**", "/web/scripts/**", "/web/assets/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/clients/confirm").permitAll()
-                .antMatchers("/h2-console/**", "/rest/**","/api/manager/**","/api/accounts","/api/clients").hasAuthority("ADMIN")
+                .antMatchers("/h2-console/**", "/rest/**", "/api/manager/**", "/api/accounts", "/api/clients").hasAuthority("ADMIN")
                 .antMatchers("/api/clients/current").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/**").hasAuthority("CLIENT")
                 .antMatchers("/api/**", "/web/**").authenticated()
@@ -75,6 +76,8 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
         http.csrf().
                 disable();
 
+        http.cors();
+
         http.headers().
                 frameOptions().disable();
 
@@ -110,7 +113,6 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
             session.setMaxInactiveInterval(600);
         }
     }
-
 
 
 }
