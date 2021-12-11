@@ -25,7 +25,7 @@ public class ClientDTO {
 
     public ClientDTO(Client client) {
         this.id = client.getId();
-        this.first_name = client.getFirst_name();
+        this.first_name = client.getName();
         this.last_name = client.getLast_name();
         this.email = client.getEmail();
         this.accounts = client.getAccounts().stream().filter(Account::getEnabled).map(AccountDTO::new).collect(Collectors.toSet());

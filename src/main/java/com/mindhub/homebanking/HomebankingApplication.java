@@ -14,6 +14,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -58,7 +60,7 @@ public class HomebankingApplication {
             admin.setIsEnabled(true);
             clients.save(admin);
 
-            Client clientMelba = new Client("Melba", "Morel", "melba@mindhub.com", passwordEncoder.encode("melba"), UserRol.CLIENT);
+            Client clientMelba = new Client("Melba", "Trips", "melba@mindhub.com", passwordEncoder.encode("melba"), UserRol.CLIENT);
             Account account = new Account("VIN-003", LocalDateTime.now().minusDays(15), 700D, clientMelba, AccountType.SAVINGS);
             Account account2 = new Account("VIN-004", LocalDateTime.now().minusDays(10), 250D, clientMelba, AccountType.CHECKING);
             clientMelba.setIsEnabled(true);
@@ -89,15 +91,14 @@ public class HomebankingApplication {
             String personalDescription = "A personal loan, as opposed to a commercial or business loan, is a loan to an individual for his or her own use. This type of loan is smaller than a mortgage and is typically used to purchase a car, renovate the home or pay for a vacation.";
             String autoDescription = "A car loan is a sum of money a consumer borrows in order to purchase a car. In most cases when purchasing a car, a borrower will specifically apply for a car loan; however, a consumer can also use a personal loan for the same purpose.";
 
-            Loan hipoteca = new Loan("Mortgage", 500000D, List.of(12, 24, 36, 48, 60),35, mortgageDescription);
-            Loan personal = new Loan("Personal", 100000D, List.of(6, 12, 24),30, personalDescription);
-            Loan automotriz = new Loan("Auto", 300000D, List.of(6, 12, 24, 36),15,autoDescription);
+            Loan hipoteca = new Loan("Mortgage", 500000D, List.of(12, 24, 36, 48, 60), 35, mortgageDescription);
+            Loan personal = new Loan("Personal", 100000D, List.of(6, 12, 24), 30, personalDescription);
+            Loan automotriz = new Loan("Auto", 300000D, List.of(6, 12, 24, 36), 15, autoDescription);
             loans.save(automotriz);
             loans.save(hipoteca);
             loans.save(personal);
 
             //Prestamos Melba
-
 
 
             transactionServiceImpl.transactionTest("VIN-003", "VIN-004", 190.00, "Veggie Dinner with Friends", LocalDateTime.now().minusDays(7));
@@ -119,18 +120,29 @@ public class HomebankingApplication {
             String id = String.format("%04d", random.nextInt(10000));
             String id2 = String.format("%04d", random.nextInt(10000));
             Card melbaCard1 = new Card("4222 9867 " + id2 + " " + id, LocalDateTime.now(), LocalDateTime.now().plusYears(5), CardType.CREDIT, CardColor.GOLD, "255", clientMelba);
-
+            melbaCard1.setAccountNumber("VIN-003");
             id = String.format("%04d", random.nextInt(10000));
             id2 = String.format("%04d", random.nextInt(10000));
             Card melbaCard2 = new Card("4222 9867 " + id2 + " " + id, LocalDateTime.now(), LocalDateTime.now().plusYears(5), CardType.CREDIT, CardColor.TITANIUM, "006", clientMelba);
-
+            melbaCard2.setAccountNumber("VIN-004");
             id = String.format("%04d", random.nextInt(10000));
             id2 = String.format("%04d", random.nextInt(10000));
             Card melbaCard3 = new Card("4222 9867 " + id2 + " " + id, LocalDateTime.now(), LocalDateTime.now().plusYears(5), CardType.CREDIT, CardColor.SILVER, "897", clientMelba);
+            melbaCard3.setAccountNumber("VIN-004");
 
             cards.save(melbaCard1);
             cards.save(melbaCard2);
             cards.save(melbaCard3);
         };
     }
+
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/transactions/cardPayment").allowedOrigins("http://localhost:8080");
+//            }
+//        };
+//    }
 }

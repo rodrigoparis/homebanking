@@ -32,8 +32,9 @@ public class CardServiceImpl implements CardService {
         //Asigning random number to the Card
         String cardNumber = getCardNumber();
         String cvv = getCvv();
-
+        Account account = client.getAccounts().stream().findAny().get();
         Card card = new Card();
+        card.setAccountNumber(account.getNumber());
         card.setClient(client);
         card.setCardHolder();
         card.setColor(CardColor.valueOf(cardColor));

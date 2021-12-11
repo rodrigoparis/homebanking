@@ -19,6 +19,7 @@ public class CardDTO {
     private CardType type;
     private CardColor color;
     private String cvv;
+    private String asociatedAccount;
 
     public CardDTO(Card card) {
         this.id = card.getId();;
@@ -29,6 +30,7 @@ public class CardDTO {
         this.type = card.getType();
         this.color = card.getColor();
         this.cvv = card.getCvv();
+        this.asociatedAccount = card.getAccountNumber();
     }
 
 

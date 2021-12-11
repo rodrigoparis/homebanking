@@ -30,9 +30,11 @@ public class CardController {
 
     @PostMapping("/clients/current/cards")
     public ResponseEntity<Object> createCard(@RequestParam String cardColor, @RequestParam String cardType, Authentication auth) {
+        //Chequeo que no esten vacio o nulos
         if (cardColor.isBlank() || cardType.isBlank() || cardType == null || cardColor == null){
             return new ResponseEntity<>("No parameter can be null or empty", HttpStatus.FORBIDDEN);
         }
+
         Client client = clientRepository.findByEmail(auth.getName()).orElse(null);
 
         if (client != null) {

@@ -7,9 +7,7 @@ import com.mindhub.homebanking.repositories.*;
 import com.mindhub.homebanking.services.LoanService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.Iterator;
@@ -59,7 +57,7 @@ public class LoanServiceImpl implements LoanService {
                 LocalDateTime.now(),
                 "MHB Loan Service",
                 account.getNumber(),
-                client.getFirst_name() + " " + client.getLast_name(),
+                client.getName() + " " + client.getLast_name(),
                 "MHBrothers"
         );
 

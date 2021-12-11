@@ -3,7 +3,6 @@ package com.mindhub.homebanking.models;
 
 import java.util.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
@@ -24,7 +23,7 @@ public class Client implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private Long id;
-    private String first_name;
+    private String name;
     private String last_name;
     private String email;
     private String password;
@@ -53,7 +52,7 @@ public class Client implements UserDetails {
     }
 
     public Client(String firstName, String lastName, String email, String password, UserRol userRol) {
-        this.first_name = firstName;
+        this.name = firstName;
         this.last_name = lastName;
         this.email = email;
         this.password = password;
@@ -114,7 +113,7 @@ public class Client implements UserDetails {
     public String toString() {
         return "Client{" +
                 "id=" + id +
-                ", first_name='" + first_name + '\'' +
+                ", first_name='" + name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
@@ -129,6 +128,6 @@ public class Client implements UserDetails {
     }
 
     public String getFullName() {
-        return this.first_name + " " + this.last_name;
+        return this.name + " " + this.last_name;
     }
 }

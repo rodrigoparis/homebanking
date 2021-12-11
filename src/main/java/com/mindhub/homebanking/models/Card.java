@@ -4,7 +4,6 @@ import com.mindhub.homebanking.enums.CardColor;
 import com.mindhub.homebanking.enums.CardType;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.jetbrains.annotations.ApiStatus;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -26,6 +25,7 @@ public class Card {
     private CardColor color;
     private String cvv;
     private Boolean enabled;
+    private String accountNumber;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="client_id")
@@ -38,13 +38,13 @@ public class Card {
         this.type = type;
         this.color = color;
         this.cvv = cvv;
-        this.cardHolder = client.getLast_name() + " " +client.getFirst_name();
+        this.cardHolder = client.getLast_name() + " " +client.getName();
         this.client = client;
         this.enabled = true;
     }
 
     public void setCardHolder() {
-        this.cardHolder = client.getLast_name() + " " +client.getFirst_name();
+        this.cardHolder = client.getLast_name() + " " +client.getName();
     }
 
 

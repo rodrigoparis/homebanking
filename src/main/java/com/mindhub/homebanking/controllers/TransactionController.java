@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.Transaction;
 import org.springframework.http.HttpStatus;
 import com.mindhub.homebanking.models.Client;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
 
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;
 
@@ -85,7 +87,7 @@ public class TransactionController {
 
     @PostMapping("/transactions/filterTransactions")
     public ResponseEntity<String> getFilteredTransactions(HttpServletResponse response, Authentication auth, String accountNumber, String from, String to) throws IOException {
-        LocalDateTime fromDate  = LocalDateTime.parse(from, DateTimeFormatter.ISO_DATE_TIME);
+        LocalDateTime fromDate = LocalDateTime.parse(from, DateTimeFormatter.ISO_DATE_TIME);
         LocalDateTime toDate = LocalDateTime.parse(to, DateTimeFormatter.ISO_DATE_TIME);
         Client client = clientRepository.findByEmail(auth.getName()).orElse(null);
         response.setContentType("application/pdf");
@@ -94,18 +96,54 @@ public class TransactionController {
         String headerValue = "attachment; filename=" + "AC-SUMMARY-" + accountNumber + client.getLast_name().toUpperCase() + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        String message =  transactionServiceImpl.filterTransactions(response,client,accountNumber, fromDate,toDate);
+        String message = transactionServiceImpl.filterTransactions(response, client, accountNumber, fromDate, toDate);
 
-        if (message.contains("success")){
+        if (message.contains("success")) {
 
             return new ResponseEntity<>("Filter successful", HttpStatus.OK);
 
         }
 
 
-
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
 
     }
 
+
+    @Transactional
+    @CrossOrigin(origins = "/**")
+    @PostMapping("/transactions/cardPayment")
+    public ResponseEntity<String> payOut(Double amount, String description, String cvv, String thruDate, String email) {
+        //chequear que esto funcione
+        Client client = clientRepository.findByEmail(email).orElse(null);
+
+        String receiver = "Melba Trips";
+        String destinationAccount = "VIN-001";
+
+        if (client == null) {
+            return new ResponseEntity<>("Not valid client", HttpStatus.FORBIDDEN);
+        }
+
+        Card paymentCard = null;
+
+        for (Card card : client.getCards()) {
+            if (card.getCvv().equals(cvv)) {
+                paymentCard = card;
+                break;
+            }
+        }
+
+        if (paymentCard == null) {
+            return new ResponseEntity<>("Card not found", HttpStatus.FORBIDDEN);
+        }
+
+        String success = transactionServiceImpl.payOut(receiver, client, amount, destinationAccount, description, paymentCard);
+
+        if (success.contains("successful")) {
+            return new ResponseEntity<>(success, HttpStatus.ACCEPTED);
+        }
+
+        return new ResponseEntity<>(success, HttpStatus.BAD_REQUEST);
+
+    }
 }
