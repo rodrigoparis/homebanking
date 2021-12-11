@@ -26,7 +26,7 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //Required authorization to access different endpoints
         http.authorizeRequests()
-                .antMatchers("/api/transactions/cardPayment").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/transactions/cardPayment").permitAll()
                 .antMatchers("/web/index.html", "/web/styles/**", "/web/scripts/**", "/web/assets/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/clients/confirm").permitAll()

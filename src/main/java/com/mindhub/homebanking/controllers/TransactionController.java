@@ -111,7 +111,7 @@ public class TransactionController {
 
 
     @Transactional
-    @CrossOrigin(origins = "/**")
+    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/transactions/cardPayment")
     public ResponseEntity<String> payOut(Double amount, String description, String cvv, String thruDate, String email) {
         //chequear que esto funcione
