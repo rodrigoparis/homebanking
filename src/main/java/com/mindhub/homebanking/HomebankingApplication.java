@@ -60,7 +60,7 @@ public class HomebankingApplication {
             admin.setIsEnabled(true);
             clients.save(admin);
 
-            Client clientMelba = new Client("Melba", "Trips", "melba@mindhub.com", passwordEncoder.encode("melba"), UserRol.CLIENT);
+            Client clientMelba = new Client("Melba", "Morel", "melba@mindhub.com", passwordEncoder.encode("melba"), UserRol.CLIENT);
             Account account = new Account("VIN-003", LocalDateTime.now().minusDays(15), 700D, clientMelba, AccountType.SAVINGS);
             Account account2 = new Account("VIN-004", LocalDateTime.now().minusDays(10), 250D, clientMelba, AccountType.CHECKING);
             clientMelba.setIsEnabled(true);
@@ -75,8 +75,8 @@ public class HomebankingApplication {
             clientRicardo.setIsEnabled(true);
 
             //Creación Cuentas
-            Account account3 = new Account("VIN-001", LocalDateTime.now(), 5000D, clientRicardo, AccountType.SAVINGS);
-            Account account4 = new Account("VIN-002", LocalDateTime.now().plusDays(1), 7032D, clientRicardo, AccountType.CHECKING);
+            Account account3 = new Account("VIN-001", LocalDateTime.now(), 50000D, clientRicardo, AccountType.SAVINGS);
+            Account account4 = new Account("VIN-002", LocalDateTime.now().plusDays(1), 70320D, clientRicardo, AccountType.CHECKING);
 
             //Agregación Cuentas a Cliente
             clientRicardo.addAccount(account3);
@@ -99,8 +99,6 @@ public class HomebankingApplication {
             loans.save(personal);
 
             //Prestamos Melba
-
-
             transactionServiceImpl.transactionTest("VIN-003", "VIN-004", 190.00, "Veggie Dinner with Friends", LocalDateTime.now().minusDays(7));
             transactionServiceImpl.transactionTest("VIN-004", "VIN-003", 255.00, "Booking Today", LocalDateTime.now().minusDays(6));
             transactionServiceImpl.transactionTest("VIN-003", "VIN-004", 300.00, "RyanAir - R0000534", LocalDateTime.now().minusDays(5));
@@ -135,14 +133,4 @@ public class HomebankingApplication {
             cards.save(melbaCard3);
         };
     }
-
-//    @Bean
-//    public WebMvcConfigurer corsConfigurer() {
-//        return new WebMvcConfigurer() {
-//            @Override
-//            public void addCorsMappings(CorsRegistry registry) {
-//                registry.addMapping("/transactions/cardPayment").allowedOrigins("http://localhost:8080");
-//            }
-//        };
-//    }
 }

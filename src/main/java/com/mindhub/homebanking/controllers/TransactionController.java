@@ -117,9 +117,9 @@ public class TransactionController {
         //chequear que esto funcione
         Client client = clientRepository.findByEmail(email).orElse(null);
 
-        String receiver = "Melba Trips";
+        String receiver = "Ricardo Morel";
         String destinationAccount = "VIN-001";
-
+        description ="Trip invoice payment for card payout";
         if (client == null) {
             return new ResponseEntity<>("Not valid client", HttpStatus.FORBIDDEN);
         }
