@@ -19,6 +19,9 @@ Principales funcionalidades:⁣
 6) Borrado lógico de elementos para la vista del usuario pero con persistencia de los datos en la base de datos.⁣
 7) Tablas gráficas para mostrar el historial de ahorros y transacciones.⁣
 ⁣
+
+
+<video src='https://www.youtube.com/watch?v=M6lk6trAQaY' width=180/>
 💾 𝐔𝐌𝐋 𝐃𝐈𝐀𝐆𝐑𝐀𝐌 ⁣
 
 ![UML DIAGRAM]
